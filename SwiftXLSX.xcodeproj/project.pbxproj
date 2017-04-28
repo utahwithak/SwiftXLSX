@@ -27,6 +27,7 @@
 		8FF9E88C1EB3A634003B2DB0 /* XMLWritable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */; };
 		8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */; };
 		8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLWritable.swift; sourceTree = "<group>"; };
 		8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Zip+Additions.swift"; sourceTree = "<group>"; };
 		8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zip.xcodeproj; path = ThirdParty/Zip/Zip.xcodeproj; sourceTree = SOURCE_ROOT; };
+		8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedStrings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,11 +164,12 @@
 			children = (
 				8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */,
 				8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */,
+				8FF9E8791EB3A634003B2DB0 /* Sheets.swift */,
 				8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */,
 				8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */,
 				8FF9E8771EB3A634003B2DB0 /* Row.swift */,
+				8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */,
 				8FF9E8781EB3A634003B2DB0 /* SheetData.swift */,
-				8FF9E8791EB3A634003B2DB0 /* Sheets.swift */,
 				8FF9E8901EB3A65B003B2DB0 /* ContentTypes */,
 				8FF9E8911EB3A662003B2DB0 /* Relationships */,
 				8FF9E88E1EB3A63B003B2DB0 /* XML Helpers */,
@@ -396,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */,
+				8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */,
 				8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */,
 				8FF9E88A1EB3A634003B2DB0 /* XMLAttributeItem.swift in Sources */,
 				8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */,

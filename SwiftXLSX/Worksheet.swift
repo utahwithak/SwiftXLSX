@@ -10,15 +10,16 @@ import Foundation
 
 public class Worksheet: XMLElement {
 
-    let sheetName: String
+    fileprivate let sheetName: String
 
-    let sheetId: Int
+    fileprivate let sheetId: Int
 
-    let data = SheetData()
+    private let data: SheetData
 
-    internal init(sheetName: String, id: Int) {
+    internal init(sheetName: String, id: Int, sharedStrings: SharedStrings) {
         self.sheetName = sheetName
         self.sheetId = id
+        data = SheetData(sharedStrings: sharedStrings)
     }
 
     internal func writeAsAttributeItem(to handle: FileHandle) throws {
@@ -53,6 +54,12 @@ public class Worksheet: XMLElement {
     override func writeElements(to handle: FileHandle) throws {
         try data.write(to: handle)
     }
+
+    public func addRow() -> Row {
+        return data.newRow()
+    }
+
+
 }
 
 extension Worksheet: DocumentContentItem {

@@ -17,6 +17,8 @@ public class Workbook: XMLElement  {
 
     let sheets: Sheets
 
+    let sharedStrings = SharedStrings()
+
     var id: String = "rId1"
 
     public override init() {
@@ -28,6 +30,7 @@ public class Workbook: XMLElement  {
 
         contentTypes.add(document: self)
         relationShips.add(file: self)
+        contentTypes.add(document: sharedStrings)
     }
 
 
@@ -37,7 +40,7 @@ public class Workbook: XMLElement  {
 
 
     public func addSheet(named name: String) -> Worksheet {
-        let sheet = sheets.newSheet(named: name)
+        let sheet = sheets.newSheet(named: name, sharedStrings: sharedStrings)
         contentTypes.add(document: sheet)
         return sheet
     }
@@ -67,8 +70,13 @@ public class Workbook: XMLElement  {
 
         //workbook file
         try saveWorkbookXML(to: xlPath.appendingPathComponent("workbook.xml"))
+        sharedStrings.id = "rId\(sheets.sheets.count + 1)"
+        sheets.relationships.add(file: sharedStrings)
+
         try sheets.saveRelations(under: xlPath)
         try sheets.saveSheets(under: xlPath)
+        // write at end
+        try sharedStrings.write(under: xlPath)
 
         try Zip.zipFiles(under: tmpPath, to: path)
     }

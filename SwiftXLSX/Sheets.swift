@@ -29,9 +29,9 @@ class Sheets: XMLElement {
     }
 
 
-    func newSheet(named name: String) -> Worksheet {
+    func newSheet(named name: String, sharedStrings: SharedStrings) -> Worksheet {
 
-        let newSheet = Worksheet(sheetName: name, id: sheets.count + 1)
+        let newSheet = Worksheet(sheetName: name, id: sheets.count + 1, sharedStrings: sharedStrings)
         sheets.append(newSheet)
         relationships.add(file: newSheet)
         return newSheet
