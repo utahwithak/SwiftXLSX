@@ -10,6 +10,23 @@
 		8FF9E8491EB3A5B3003B2DB0 /* SwiftXLSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */; };
 		8FF9E84E1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */; };
 		8FF9E8501EB3A5B3003B2DB0 /* SwiftXLSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF9E8701EB3A62D003B2DB0 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */; };
+		8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */; };
+		8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */; };
+		8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */; };
+		8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8741EB3A634003B2DB0 /* Relationship.swift */; };
+		8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */; };
+		8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8761EB3A634003B2DB0 /* Relationships.swift */; };
+		8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8771EB3A634003B2DB0 /* Row.swift */; };
+		8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8781EB3A634003B2DB0 /* SheetData.swift */; };
+		8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8791EB3A634003B2DB0 /* Sheets.swift */; };
+		8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */; };
+		8FF9E8891EB3A634003B2DB0 /* Worksheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */; };
+		8FF9E88A1EB3A634003B2DB0 /* XMLAttributeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */; };
+		8FF9E88B1EB3A634003B2DB0 /* XMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */; };
+		8FF9E88C1EB3A634003B2DB0 /* XMLWritable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */; };
+		8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */; };
+		8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +37,62 @@
 			remoteGlobalIDString = 8FF9E83E1EB3A5B3003B2DB0;
 			remoteInfo = SwiftXLSX;
 		};
+		8FF9E89F1EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 347E3A741C1DFFB500A11FD3;
+			remoteInfo = Zip;
+		};
+		8FF9E8A11EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 347E3A7E1C1DFFB500A11FD3;
+			remoteInfo = ZipTests;
+		};
+		8FF9E8A31EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 343F50FF1C8DAEEC0028C434;
+			remoteInfo = "Zip OSX";
+		};
+		8FF9E8A51EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 343F51081C8DAEEC0028C434;
+			remoteInfo = "Zip OSXTests";
+		};
+		8FF9E8A71EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 342545B51CE525B200336074;
+			remoteInfo = "Zip tvOS";
+		};
+		8FF9E8AA1EB3A7A0003B2DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 343F50FE1C8DAEEC0028C434;
+			remoteInfo = "Zip OSX";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8FF9E8941EB3A693003B2DB0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftXLSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +101,23 @@
 		8FF9E8481EB3A5B3003B2DB0 /* SwiftXLSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftXLSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXLSXTests.swift; sourceTree = "<group>"; };
 		8FF9E84F1EB3A5B3003B2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTypes.swift; sourceTree = "<group>"; };
+		8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentContentItem.swift; sourceTree = "<group>"; };
+		8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileHandle+Additions.swift"; sourceTree = "<group>"; };
+		8FF9E8741EB3A634003B2DB0 /* Relationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
+		8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipItem.swift; sourceTree = "<group>"; };
+		8FF9E8761EB3A634003B2DB0 /* Relationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationships.swift; sourceTree = "<group>"; };
+		8FF9E8771EB3A634003B2DB0 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		8FF9E8781EB3A634003B2DB0 /* SheetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetData.swift; sourceTree = "<group>"; };
+		8FF9E8791EB3A634003B2DB0 /* Sheets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
+		8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workbook.swift; sourceTree = "<group>"; };
+		8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worksheet.swift; sourceTree = "<group>"; };
+		8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLAttributeItem.swift; sourceTree = "<group>"; };
+		8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLElement.swift; sourceTree = "<group>"; };
+		8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLWritable.swift; sourceTree = "<group>"; };
+		8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Zip+Additions.swift"; sourceTree = "<group>"; };
+		8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zip.xcodeproj; path = ThirdParty/Zip/Zip.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +161,17 @@
 			isa = PBXGroup;
 			children = (
 				8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */,
+				8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */,
+				8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */,
+				8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */,
+				8FF9E8771EB3A634003B2DB0 /* Row.swift */,
+				8FF9E8781EB3A634003B2DB0 /* SheetData.swift */,
+				8FF9E8791EB3A634003B2DB0 /* Sheets.swift */,
+				8FF9E8901EB3A65B003B2DB0 /* ContentTypes */,
+				8FF9E8911EB3A662003B2DB0 /* Relationships */,
+				8FF9E88E1EB3A63B003B2DB0 /* XML Helpers */,
+				8FF9E88F1EB3A644003B2DB0 /* Additions */,
+				8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */,
 				8FF9E8431EB3A5B3003B2DB0 /* Info.plist */,
 			);
 			path = SwiftXLSX;
@@ -84,6 +184,56 @@
 				8FF9E84F1EB3A5B3003B2DB0 /* Info.plist */,
 			);
 			path = SwiftXLSXTests;
+			sourceTree = "<group>";
+		};
+		8FF9E88E1EB3A63B003B2DB0 /* XML Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */,
+				8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */,
+				8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */,
+			);
+			name = "XML Helpers";
+			sourceTree = "<group>";
+		};
+		8FF9E88F1EB3A644003B2DB0 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */,
+				8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
+		8FF9E8901EB3A65B003B2DB0 /* ContentTypes */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */,
+				8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */,
+			);
+			name = ContentTypes;
+			sourceTree = "<group>";
+		};
+		8FF9E8911EB3A662003B2DB0 /* Relationships */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9E8741EB3A634003B2DB0 /* Relationship.swift */,
+				8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */,
+				8FF9E8761EB3A634003B2DB0 /* Relationships.swift */,
+			);
+			name = Relationships;
+			sourceTree = "<group>";
+		};
+		8FF9E8981EB3A78B003B2DB0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9E8A01EB3A78B003B2DB0 /* Zip.framework */,
+				8FF9E8A21EB3A78B003B2DB0 /* ZipTests.xctest */,
+				8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */,
+				8FF9E8A61EB3A78B003B2DB0 /* Zip OSXTests.xctest */,
+				8FF9E8A81EB3A78B003B2DB0 /* Zip.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,10 +258,12 @@
 				8FF9E83B1EB3A5B3003B2DB0 /* Frameworks */,
 				8FF9E83C1EB3A5B3003B2DB0 /* Headers */,
 				8FF9E83D1EB3A5B3003B2DB0 /* Resources */,
+				8FF9E8941EB3A693003B2DB0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8FF9E8AB1EB3A7A0003B2DB0 /* PBXTargetDependency */,
 			);
 			name = SwiftXLSX;
 			productName = SwiftXLSX;
@@ -149,6 +301,7 @@
 					8FF9E83E1EB3A5B3003B2DB0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = QV4QS82KBT;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					8FF9E8471EB3A5B3003B2DB0 = {
@@ -168,6 +321,12 @@
 			mainGroup = 8FF9E8351EB3A5B3003B2DB0;
 			productRefGroup = 8FF9E8401EB3A5B3003B2DB0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8FF9E8981EB3A78B003B2DB0 /* Products */;
+					ProjectRef = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8FF9E83E1EB3A5B3003B2DB0 /* SwiftXLSX */,
@@ -175,6 +334,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8FF9E8A01EB3A78B003B2DB0 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 8FF9E89F1EB3A78B003B2DB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8FF9E8A21EB3A78B003B2DB0 /* ZipTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZipTests.xctest;
+			remoteRef = 8FF9E8A11EB3A78B003B2DB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 8FF9E8A31EB3A78B003B2DB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8FF9E8A61EB3A78B003B2DB0 /* Zip OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Zip OSXTests.xctest";
+			remoteRef = 8FF9E8A51EB3A78B003B2DB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8FF9E8A81EB3A78B003B2DB0 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 8FF9E8A71EB3A78B003B2DB0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8FF9E83D1EB3A5B3003B2DB0 /* Resources */ = {
@@ -198,6 +395,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */,
+				8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */,
+				8FF9E88A1EB3A634003B2DB0 /* XMLAttributeItem.swift in Sources */,
+				8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */,
+				8FF9E88C1EB3A634003B2DB0 /* XMLWritable.swift in Sources */,
+				8FF9E88B1EB3A634003B2DB0 /* XMLElement.swift in Sources */,
+				8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */,
+				8FF9E8701EB3A62D003B2DB0 /* Cell.swift in Sources */,
+				8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */,
+				8FF9E8891EB3A634003B2DB0 /* Worksheet.swift in Sources */,
+				8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */,
+				8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */,
+				8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */,
+				8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */,
+				8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */,
+				8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +429,11 @@
 			isa = PBXTargetDependency;
 			target = 8FF9E83E1EB3A5B3003B2DB0 /* SwiftXLSX */;
 			targetProxy = 8FF9E84A1EB3A5B3003B2DB0 /* PBXContainerItemProxy */;
+		};
+		8FF9E8AB1EB3A7A0003B2DB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Zip OSX";
+			targetProxy = 8FF9E8AA1EB3A7A0003B2DB0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -321,6 +539,7 @@
 		8FF9E8541EB3A5B3003B2DB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -335,6 +554,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.datum.SwiftXLSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -342,6 +562,7 @@
 		8FF9E8551EB3A5B3003B2DB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -363,6 +584,7 @@
 		8FF9E8571EB3A5B3003B2DB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QV4QS82KBT;
 				INFOPLIST_FILE = SwiftXLSXTests/Info.plist;
@@ -376,6 +598,7 @@
 		8FF9E8581EB3A5B3003B2DB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QV4QS82KBT;
 				INFOPLIST_FILE = SwiftXLSXTests/Info.plist;
@@ -405,6 +628,7 @@
 				8FF9E8551EB3A5B3003B2DB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8FF9E8561EB3A5B3003B2DB0 /* Build configuration list for PBXNativeTarget "SwiftXLSXTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +637,7 @@
 				8FF9E8581EB3A5B3003B2DB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

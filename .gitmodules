@@ -1,0 +1,3 @@
+[submodule "ThirdParty/Zip"]
+	path = ThirdParty/Zip
+	url = git@github.com:marmelroy/Zip.git
