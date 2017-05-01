@@ -82,9 +82,6 @@ fileprivate class SharedString: XMLElement {
 
     override func writeElements(to handle: FileHandle) throws {
         try handle.write(string: "<t>")
-        if stringValue == "36.0000000@6.4715840@7" {
-            print("AiwaS")
-        }
         try stringValue.write(to: handle)
         try handle.write(string: "</t>")
     }
