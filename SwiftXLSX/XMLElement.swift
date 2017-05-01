@@ -24,7 +24,7 @@ public class XMLElement: XMLWritable {
     }
 
     func write(to handle: FileHandle) throws {
-        try handle.write(string: "<\(elementName) ")
+        try handle.write(string: "<\(elementName)")
         if isEmpty {
             try handle.write(string: "/>")
             return

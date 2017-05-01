@@ -23,7 +23,7 @@ class SharedStrings: XMLElement {
     }
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"")
+        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"")
     }
 
     func write(under parentDir: URL) throws {
@@ -82,6 +82,9 @@ fileprivate class SharedString: XMLElement {
 
     override func writeElements(to handle: FileHandle) throws {
         try handle.write(string: "<t>")
+        if stringValue == "36.0000000@6.4715840@7" {
+            print("AiwaS")
+        }
         try stringValue.write(to: handle)
         try handle.write(string: "</t>")
     }

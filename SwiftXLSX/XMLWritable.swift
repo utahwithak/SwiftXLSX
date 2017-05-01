@@ -19,6 +19,14 @@ extension String: XMLWritable {
         clean = clean.replacingOccurrences(of: ">", with: "&gt;")
         clean = clean.replacingOccurrences(of: "\"", with: "&quot;")
         clean = clean.replacingOccurrences(of: "\'", with: "&apos;")
+        while let controlChars = clean.rangeOfCharacter(from: CharacterSet.controlCharacters) {
+            clean.removeSubrange(controlChars)
+        }
+
+        guard !clean.isEmpty else {
+            return
+        }
+
         try handle.write(string: clean)
     }
 }

@@ -86,7 +86,7 @@ public class Cell: XMLElement {
     }
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "r=\"\(identifier)\"")
+        try handle.write(string: " r=\"\(identifier)\"")
         if sharedStringIndex != nil {
             try handle.write(string: " t=\"s\"")
         }

@@ -83,7 +83,7 @@ public class Workbook: XMLElement  {
 
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"")
+        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"")
     }
 
     override func writeElements(to handle: FileHandle) throws {

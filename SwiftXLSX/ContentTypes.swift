@@ -71,7 +71,7 @@ class ContentTypes: XMLElement {
     }
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"")
+        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"")
     }
 
     override func writeElements(to handle: FileHandle) throws {

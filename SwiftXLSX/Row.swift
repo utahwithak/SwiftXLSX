@@ -31,7 +31,7 @@ public class Row: XMLElement {
     }
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "r=\"\(id + 1)\"")
+        try handle.write(string: " r=\"\(id + 1)\"")
     }
 
     public func set(column: Int, to newValue: XLSValue, create: Bool = false) {

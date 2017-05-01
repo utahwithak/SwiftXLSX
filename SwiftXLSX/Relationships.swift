@@ -41,7 +41,7 @@ class Relationships: XMLElement {
     }
 
     override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: "xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"")
+        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"")
     }
 
     override func writeElements(to handle: FileHandle) throws {
