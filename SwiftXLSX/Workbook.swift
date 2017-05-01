@@ -9,7 +9,7 @@
 import Foundation
 import Zip
 
-public class Workbook: XMLRootElement  {
+public class Workbook: XMLDocument  {
 
     let contentTypes: ContentTypes
 
@@ -21,12 +21,25 @@ public class Workbook: XMLRootElement  {
 
     var id: String = "rId1"
 
+    let root = XMLElement(name:"workbook")
+
     public override init() {
+
+        root.addAttribute(XMLAttribute(key:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main"))
+        root.addAttribute(XMLAttribute(key:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006"))
+        root.addAttribute(XMLAttribute(key:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships"))
+
         sheets = Sheets()
+        root.addChild(sheets)
+        
         relationShips = Relationships(name: ".rels")
         contentTypes = ContentTypes()
 
-        super.init()
+        super.init(rootElement: root)
+
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
 
         contentTypes.add(document: self)
         relationShips.add(file: self)
@@ -69,7 +82,9 @@ public class Workbook: XMLRootElement  {
         try FileManager.default.createDirectory(at: xlPath, withIntermediateDirectories: true, attributes: nil)
 
         //workbook file
-        try saveWorkbookXML(to: xlPath.appendingPathComponent("workbook.xml"))
+        let workbookData = xmlData
+        try workbookData.write(to: xlPath.appendingPathComponent("workbook.xml"))
+
         sharedStrings.id = "rId\(sheets.sheets.count + 1)"
         sheets.relationships.add(file: sharedStrings)
 
@@ -81,33 +96,6 @@ public class Workbook: XMLRootElement  {
         try Zip.zipFiles(under: tmpPath, to: path)
     }
 
-
-    override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"")
-    }
-
-    override func writeElements(to handle: FileHandle) throws {
-        try sheets.write(to: handle)
-    }
-
-    private func saveWorkbookXML(to path: URL) throws {
-        if FileManager.default.fileExists(atPath: path.path) {
-            try FileManager.default.removeItem(at: path)
-        }
-
-        guard FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil) else {
-            throw NSError(domain: "com.datum.SwiftXLS", code: 6, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Unable to Create file", comment: "Create file error")])
-        }
-        let fileHandle = try FileHandle(forWritingTo: path)
-        try fileHandle.writeXMLHeader()
-        try write(to: fileHandle)
-    }
-
-
-
-    override var elementName: String {
-        return "workbook"
-    }
 }
 
 

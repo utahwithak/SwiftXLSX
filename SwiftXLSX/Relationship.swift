@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Relationship: XMLAttributeItem {
+class Relationship: XMLElement {
 
     init(id: String, type: String, target: String) {
-        super.init(name: "Relationship")
-        attributes["Id"] = .text(id)
-        attributes["Type"] = .text(type)
-        attributes["Target"] = .text(target)
+        super.init(name: "Relationship", uri: nil)
+        addAttribute(XMLAttribute(key: "Id", value: id))
+        addAttribute(XMLAttribute(key: "Type", value: type))
+        addAttribute(XMLAttribute(key: "Target", value: target))
     }
 
 }

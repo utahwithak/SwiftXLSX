@@ -8,17 +8,14 @@
 
 import Foundation
 
-class Relationships: XMLRootElement {
+class Relationships: XMLDocument {
 
-    override var elementName: String {
-        return "Relationships"
-    }
-
-    var relationships = [Relationship]()
-
-    let name: String
+    let root = XMLElement(name: "Relationships")
 
     init(name: String) {
+        root.addAttribute(XMLAttribute(key: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/relationships"))
+
+        super.init(rootElement: root)
         self.name = name
     }
 
@@ -26,27 +23,12 @@ class Relationships: XMLRootElement {
 
         let subDir = parentDir.appendingPathComponent("_rels")
         try FileManager.default.createDirectory(at: subDir, withIntermediateDirectories: true, attributes: nil)
-        let filePath = subDir.appendingPathComponent(name)
-        guard FileManager.default.createFile(atPath: filePath.path, contents: nil, attributes: nil) else {
-            throw NSError(domain: "com.datum.SwiftXLS", code: 6, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Unable to Create file", comment: "Create file error")])
-        }
-        let fileHandle = try FileHandle(forWritingTo: filePath)
-        try fileHandle.writeXMLHeader()
-        try write(to: fileHandle)
+        let filePath = subDir.appendingPathComponent(name!)
 
+        try xmlData.write(to: filePath)
     }
 
     func add(file: RelationshipItem) {
-        relationships.append(Relationship(id: file.id, type: file.type, target: file.target))
-    }
-
-    override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"")
-    }
-
-    override func writeElements(to handle: FileHandle) throws {
-        for relation in relationships {
-            try relation.write(to: handle)
-        }
+        addChild(Relationship(id: file.id, type: file.type, target: file.target))
     }
 }

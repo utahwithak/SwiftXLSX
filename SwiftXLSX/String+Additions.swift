@@ -1,20 +1,16 @@
 //
-//  XMLWritable.swift
-//  SwiftXLS
+//  String+Additions.swift
+//  SwiftXLSX
 //
-//  Created by Carl Wieland on 4/27/17.
+//  Created by Carl Wieland on 5/1/17.
 //  Copyright © 2017 Datum. All rights reserved.
 //
 
 import Foundation
 
-protocol XMLWritable {
-    func write(to handle: FileHandle) throws
-}
+extension String {
 
-extension String: XMLWritable {
-
-    func write(to handle: FileHandle) throws {
+    var validXMLString: String {
         var clean = replacingOccurrences(of: "&", with: "&amp;")
         clean = clean.replacingOccurrences(of: "<", with: "&lt;")
         clean = clean.replacingOccurrences(of: ">", with: "&gt;")
@@ -24,11 +20,8 @@ extension String: XMLWritable {
             clean.removeSubrange(controlChars)
         }
 
-        guard !clean.isEmpty else {
-            return
-        }
+        return clean
 
-        try handle.write(string: clean)
     }
 
 }

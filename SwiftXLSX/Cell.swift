@@ -8,45 +8,27 @@
 
 import Foundation
 
-public enum XLSValue: XMLWritable, Equatable {
+internal enum XLSValue {
     case integer(Int)
-    case text(String)
+    case text(string: SharedStrings, index: Int)
     case double(Double)
     case float(Float)
 
-    func write(to handle: FileHandle) throws {
-        try handle.write(string: "<v>")
+    var xmlValue: String {
         switch self {
         case .integer(let x):
-            try handle.write(string: "\(x)")
+            return "\(x)"
         case .double(let x):
-            try handle.write(string: "\(x)")
+            return "\(x)"
         case .float(let x):
-            try handle.write(string: "\(x)")
-
-        case .text(let str):
-            try str.write(to: handle)
+            return "\(x)"
+        case .text(_ , let index):
+            return "\(index)"
         }
-        try handle.write(string: "</v>")
-    }
-}
-public func ==(lhs: XLSValue, rhs: XLSValue) -> Bool {
-    switch (lhs, rhs) {
-    case (.integer(let x), .integer(let y)):
-        return x == y
-    case (.double(let x), .double(let y)):
-        return x == y
-    case (.float(let x), .float(let y)):
-        return x == y
-    case (.text(let x), .text(let y)):
-        return x == y
-    default:
-        return false
-
     }
 }
 
-public class Cell: XMLRootElement {
+internal class Cell: XMLElement {
 
     private static let validColumnLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
@@ -69,42 +51,45 @@ public class Cell: XMLRootElement {
 
     var sharedStringIndex: Int?
 
-    var value: XLSValue
+    var value: XLSValue {
+        didSet {
+            if case let .text(sharedStr, index) = oldValue {
+                sharedStr.removeShared(at: index)
+            }
+            updateChildren()
+        }
+    }
 
     init(row: Int, column: Int, value: XLSValue) {
         self.row = row
         self.column = column
         self.value = value
+        super.init(name: "c", uri: nil)
+
+        addAttribute(XMLAttribute(key: "r", value: identifier))
+
+        updateChildren()
+    }
+
+    func updateChildren() {
+        let newElement = SimpleElement(name: "v", value: value.xmlValue)
+
+        if childCount > 0 {
+            replaceChild(at: 0, with: newElement)
+        } else {
+            addChild(newElement)
+        }
+
+        if case .text(_, _) = value {
+            addAttribute(XMLAttribute(key: "t", value: "s"))
+        } else {
+            removeAttribute(forName: "t")
+        }
+    
     }
 
     lazy var identifier: String = {
         return "\(Cell.colToString(self.column + 1))\(self.row + 1)"
     }()
 
-    override var elementName: String {
-        return "c"
-    }
-
-    override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: " r=\"\(identifier)\"")
-        if sharedStringIndex != nil {
-            try handle.write(string: " t=\"s\"")
-        }
-    }
-    
-    override func writeElements(to handle: FileHandle) throws {
-        if let index = sharedStringIndex {
-            let indexVal = XLSValue.integer(index)
-            try indexVal.write(to: handle)
-        } else {
-            try value.write(to: handle)
-        }
-    }
-
-
-    func prepareForWriting(with sharedStrings: SharedStrings) {
-        if case .text(let text) = value {
-            sharedStringIndex = sharedStrings.add(text)
-        }
-    }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F49B49E1EB7BB84001B328C /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49B49D1EB7BB84001B328C /* String+Additions.swift */; };
 		8FF9E8491EB3A5B3003B2DB0 /* SwiftXLSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */; };
 		8FF9E84E1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */; };
 		8FF9E8501EB3A5B3003B2DB0 /* SwiftXLSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,9 +23,8 @@
 		8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8791EB3A634003B2DB0 /* Sheets.swift */; };
 		8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */; };
 		8FF9E8891EB3A634003B2DB0 /* Worksheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */; };
-		8FF9E88A1EB3A634003B2DB0 /* XMLAttributeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */; };
-		8FF9E88B1EB3A634003B2DB0 /* XMLElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */; };
-		8FF9E88C1EB3A634003B2DB0 /* XMLWritable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */; };
+		8FF9E88A1EB3A634003B2DB0 /* XMLAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87D1EB3A634003B2DB0 /* XMLAttribute.swift */; };
+		8FF9E88B1EB3A634003B2DB0 /* SimpleElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87E1EB3A634003B2DB0 /* SimpleElement.swift */; };
 		8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */; };
 		8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */; };
@@ -96,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F49B49D1EB7BB84001B328C /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftXLSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftXLSX.h; sourceTree = "<group>"; };
 		8FF9E8431EB3A5B3003B2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,9 +115,8 @@
 		8FF9E8791EB3A634003B2DB0 /* Sheets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
 		8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workbook.swift; sourceTree = "<group>"; };
 		8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worksheet.swift; sourceTree = "<group>"; };
-		8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLAttributeItem.swift; sourceTree = "<group>"; };
-		8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLElement.swift; sourceTree = "<group>"; };
-		8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLWritable.swift; sourceTree = "<group>"; };
+		8FF9E87D1EB3A634003B2DB0 /* XMLAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLAttribute.swift; sourceTree = "<group>"; };
+		8FF9E87E1EB3A634003B2DB0 /* SimpleElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleElement.swift; sourceTree = "<group>"; };
 		8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Zip+Additions.swift"; sourceTree = "<group>"; };
 		8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zip.xcodeproj; path = ThirdParty/Zip/Zip.xcodeproj; sourceTree = SOURCE_ROOT; };
 		8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedStrings.swift; sourceTree = "<group>"; };
@@ -192,9 +192,8 @@
 		8FF9E88E1EB3A63B003B2DB0 /* XML Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				8FF9E87D1EB3A634003B2DB0 /* XMLAttributeItem.swift */,
-				8FF9E87E1EB3A634003B2DB0 /* XMLElement.swift */,
-				8FF9E87F1EB3A634003B2DB0 /* XMLWritable.swift */,
+				8FF9E87D1EB3A634003B2DB0 /* XMLAttribute.swift */,
+				8FF9E87E1EB3A634003B2DB0 /* SimpleElement.swift */,
 			);
 			name = "XML Helpers";
 			sourceTree = "<group>";
@@ -203,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */,
+				8F49B49D1EB7BB84001B328C /* String+Additions.swift */,
 				8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */,
 			);
 			name = Additions;
@@ -220,9 +220,9 @@
 		8FF9E8911EB3A662003B2DB0 /* Relationships */ = {
 			isa = PBXGroup;
 			children = (
+				8FF9E8761EB3A634003B2DB0 /* Relationships.swift */,
 				8FF9E8741EB3A634003B2DB0 /* Relationship.swift */,
 				8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */,
-				8FF9E8761EB3A634003B2DB0 /* Relationships.swift */,
 			);
 			name = Relationships;
 			sourceTree = "<group>";
@@ -401,10 +401,9 @@
 				8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */,
 				8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */,
 				8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */,
-				8FF9E88A1EB3A634003B2DB0 /* XMLAttributeItem.swift in Sources */,
+				8FF9E88A1EB3A634003B2DB0 /* XMLAttribute.swift in Sources */,
 				8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */,
-				8FF9E88C1EB3A634003B2DB0 /* XMLWritable.swift in Sources */,
-				8FF9E88B1EB3A634003B2DB0 /* XMLElement.swift in Sources */,
+				8FF9E88B1EB3A634003B2DB0 /* SimpleElement.swift in Sources */,
 				8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */,
 				8FF9E8701EB3A62D003B2DB0 /* Cell.swift in Sources */,
 				8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */,
@@ -412,6 +411,7 @@
 				8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */,
 				8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */,
 				8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */,
+				8F49B49E1EB7BB84001B328C /* String+Additions.swift in Sources */,
 				8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */,
 				8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */,
 				8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */,

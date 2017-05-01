@@ -8,49 +8,51 @@
 
 import Foundation
 
-fileprivate protocol ContentType: XMLWritable {
+fileprivate protocol ContentType {
 
 }
 
-fileprivate class OverrideType: XMLAttributeItem, ContentType {
+fileprivate class OverrideType: XMLElement, ContentType {
 
     init(type: String, part: String) {
-        super.init(name: "Override")
-        add(value: .text(type), for: "ContentType")
-        add(value: .text(part), for: "PartName")
+        super.init(name: "Override", uri: nil)
+        addAttribute(XMLAttribute(key: "ContentType", value: type))
+        addAttribute(XMLAttribute(key: "PartName", value: part))
     }
 
 }
 
-fileprivate class DefaultType: XMLAttributeItem, ContentType {
+fileprivate class DefaultType: XMLElement, ContentType {
 
     init(type: String, fileExtension: String) {
-        super.init(name: "Default")
-        add(value: .text(type), for: "ContentType")
-        add(value: .text(fileExtension), for: "Extension")
-
+        super.init(name: "Default", uri: nil)
+        addAttribute(XMLAttribute(key:"ContentType", value: type))
+        addAttribute(XMLAttribute(key:"Extension", value: fileExtension))
     }
 
 }
 
 
-class ContentTypes: XMLRootElement {
+class ContentTypes: XMLDocument {
 
-    private var types = [ContentType]()
 
-    override var elementName: String {
-        return "Types"
-    }
+    let root = XMLElement(name: "Types")
 
     override init() {
-        types.append(DefaultType(type: "application/xml", fileExtension: "xml"))
-        types.append(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
-        types.append(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
+        root.addAttribute(XMLAttribute(key: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/content-types"))
+        root.addChild(DefaultType(type: "application/xml", fileExtension: "xml"))
+        root.addChild(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
+        root.addChild(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
 
+        super.init(rootElement: root)
+
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
     }
 
     func add(document: DocumentContentItem) {
-        types.append(OverrideType(type: document.contentType, part: document.partName))
+        root.addChild(OverrideType(type: document.contentType, part: document.partName))
     }
 
     func write(under parentDir: URL) throws {
@@ -61,23 +63,7 @@ class ContentTypes: XMLRootElement {
             try FileManager.default.removeItem(at: path)
         }
 
-        guard FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil) else {
-            throw NSError(domain: "com.datum.SwiftXLS", code: 6, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Unable to Create file", comment: "Create file error")])
-        }
-        let fileHandle = try FileHandle(forWritingTo: path)
-        try fileHandle.writeXMLHeader()
-        try write(to: fileHandle)
-
-    }
-
-    override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"")
-    }
-
-    override func writeElements(to handle: FileHandle) throws {
-        for type in types {
-            try type.write(to: handle)
-        }
+        try xmlData.write(to: path)
 
     }
 }

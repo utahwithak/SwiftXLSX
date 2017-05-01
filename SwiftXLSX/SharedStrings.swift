@@ -8,7 +8,19 @@
 
 import Foundation
 
-class SharedStrings: XMLRootElement {
+class SharedStrings: XMLDocument {
+
+    let root = XMLElement(name: "sst")
+    override init() {
+
+        root.addAttribute(XMLAttribute(key:"xmlns", value: "http://schemas.openxmlformats.org/spreadsheetml/2006/main"))
+
+        super.init(rootElement: root)
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
+    }
+
     private var strings = [SharedString]()
 
     func add(_ value: String) -> Int {
@@ -18,14 +30,6 @@ class SharedStrings: XMLRootElement {
     }
     var id: String = "rId0"
 
-    override var elementName: String {
-        return "sst"
-    }
-
-    override func writeheaderAttributes(to handle: FileHandle) throws {
-        try handle.write(string: " xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"")
-    }
-
     func write(under parentDir: URL) throws {
         let path = parentDir.appendingPathComponent("sharedStrings.xml")
 
@@ -33,24 +37,18 @@ class SharedStrings: XMLRootElement {
             try FileManager.default.removeItem(at: path)
         }
 
-        guard FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil) else {
-            throw NSError(domain: "com.datum.SwiftXLS", code: 6, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Unable to Create file", comment: "Create file error")])
-        }
-        let fileHandle = try FileHandle(forWritingTo: path)
-        try fileHandle.writeXMLHeader()
-        try write(to: fileHandle)
-        
+        let data = xmlData
+        try data.write(to: path)
     }
 
-    override func writeElements(to handle: FileHandle) throws {
-        for str in strings {
-            try str.write(to: handle)
-        }
+    func removeShared(at index: Int) {
+        strings.remove(at: index)
     }
 
 }
 
 extension SharedStrings: DocumentContentItem {
+    
     var contentType: String {
         return "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"
     }
@@ -70,19 +68,10 @@ extension SharedStrings: RelationshipItem {
     }
 }
 
-fileprivate class SharedString: XMLRootElement {
-    let stringValue: String
+fileprivate class SharedString: XMLElement {
     init(text: String) {
-        self.stringValue = text
-    }
+        super.init(name: "si", uri: nil)
+        addChild(SimpleElement(name: "t", value: text))
 
-    override var elementName: String {
-        return "si"
-    }
-
-    override func writeElements(to handle: FileHandle) throws {
-        try handle.write(string: "<t>")
-        try stringValue.write(to: handle)
-        try handle.write(string: "</t>")
     }
 }

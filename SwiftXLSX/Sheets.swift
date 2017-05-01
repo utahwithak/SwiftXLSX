@@ -8,32 +8,22 @@
 
 import Foundation
 
-class Sheets: XMLRootElement {
+class Sheets: XMLElement {
 
     let relationships = Relationships(name:"workbook.xml.rels")
 
     var sheets = [Worksheet]()
 
-    override init() {
-        super.init()
+    init() {
+        super.init(name: "sheets", uri: nil)
     }
-
-    override var elementName: String {
-        return "sheets"
-    }
-
-    override func writeElements(to handle: FileHandle) throws {
-        for sheet in sheets {
-            try sheet.writeAsAttributeItem(to: handle)
-        }
-    }
-
 
     func newSheet(named name: String, sharedStrings: SharedStrings) -> Worksheet {
 
         let newSheet = Worksheet(sheetName: name, id: sheets.count + 1, sharedStrings: sharedStrings)
         sheets.append(newSheet)
         relationships.add(file: newSheet)
+        addChild(newSheet.sheetElement())
         return newSheet
 
     }

@@ -8,37 +8,23 @@
 
 import Foundation
 
-class SheetData: XMLRootElement {
-
-    var rows = [Row]()
-
+class SheetData: XMLElement {
+    
     let sharedStrings: SharedStrings
     
     init(sharedStrings: SharedStrings) {
         self.sharedStrings = sharedStrings
-        super.init()
+        super.init(name: "sheetData", uri: nil)
     }
 
     private var maxRow = 0
 
-    override var isEmpty: Bool {
-         return rows.reduce(true, { $0 && $1.isEmpty })
-    }
-    
-    override var elementName: String {
-        return "sheetData"
-    }
-
     func newRow() -> Row {
         let newRow = Row(id: maxRow, sharedStrings: sharedStrings)
         maxRow += 1
-        rows.append(newRow)
+
+        addChild(newRow)
         return newRow
     }
     
-    override func writeElements(to handle: FileHandle) throws {
-        for row in rows {
-            try row.write(to: handle)
-        }
-    }
 }
