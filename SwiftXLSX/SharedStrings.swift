@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SharedStrings: XMLElement {
+class SharedStrings: XMLRootElement {
     private var strings = [SharedString]()
 
     func add(_ value: String) -> Int {
@@ -70,7 +70,7 @@ extension SharedStrings: RelationshipItem {
     }
 }
 
-fileprivate class SharedString: XMLElement {
+fileprivate class SharedString: XMLRootElement {
     let stringValue: String
     init(text: String) {
         self.stringValue = text

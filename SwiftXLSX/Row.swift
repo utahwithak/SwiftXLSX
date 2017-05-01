@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Row: XMLElement {
+public class Row: XMLRootElement {
 
     let id: Int
 

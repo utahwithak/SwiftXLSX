@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class XMLElement: XMLWritable {
+public class XMLRootElement: XMLWritable {
 
 
     var elementName: String {

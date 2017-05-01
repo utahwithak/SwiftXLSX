@@ -34,7 +34,7 @@ fileprivate class DefaultType: XMLAttributeItem, ContentType {
 }
 
 
-class ContentTypes: XMLElement {
+class ContentTypes: XMLRootElement {
 
     private var types = [ContentType]()
 

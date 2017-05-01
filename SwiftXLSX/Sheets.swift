@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Sheets: XMLElement {
+class Sheets: XMLRootElement {
 
     let relationships = Relationships(name:"workbook.xml.rels")
 

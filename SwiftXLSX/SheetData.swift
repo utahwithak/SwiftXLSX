@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SheetData: XMLElement {
+class SheetData: XMLRootElement {
 
     var rows = [Row]()
 

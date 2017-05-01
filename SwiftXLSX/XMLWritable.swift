@@ -13,6 +13,7 @@ protocol XMLWritable {
 }
 
 extension String: XMLWritable {
+
     func write(to handle: FileHandle) throws {
         var clean = replacingOccurrences(of: "&", with: "&amp;")
         clean = clean.replacingOccurrences(of: "<", with: "&lt;")
@@ -29,4 +30,5 @@ extension String: XMLWritable {
 
         try handle.write(string: clean)
     }
+
 }

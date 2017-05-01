@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Worksheet: XMLElement {
+public class Worksheet: XMLRootElement {
 
     fileprivate let sheetName: String
 

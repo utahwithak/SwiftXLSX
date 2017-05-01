@@ -9,7 +9,7 @@
 import Foundation
 import Zip
 
-public class Workbook: XMLElement  {
+public class Workbook: XMLRootElement  {
 
     let contentTypes: ContentTypes
 

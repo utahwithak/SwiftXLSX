@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Relationships: XMLElement {
+class Relationships: XMLRootElement {
 
     override var elementName: String {
         return "Relationships"
