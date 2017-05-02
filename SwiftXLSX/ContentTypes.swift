@@ -16,8 +16,8 @@ fileprivate class OverrideType: XMLElement, ContentType {
 
     init(type: String, part: String) {
         super.init(name: "Override", uri: nil)
-        addAttribute(XMLAttribute(key: "ContentType", value: type))
-        addAttribute(XMLAttribute(key: "PartName", value: part))
+        addAttribute(name: "ContentType", value: type)
+        addAttribute(name: "PartName", value: part)
     }
 
 }
@@ -26,8 +26,8 @@ fileprivate class DefaultType: XMLElement, ContentType {
 
     init(type: String, fileExtension: String) {
         super.init(name: "Default", uri: nil)
-        addAttribute(XMLAttribute(key:"ContentType", value: type))
-        addAttribute(XMLAttribute(key:"Extension", value: fileExtension))
+        addAttribute(name:"ContentType", value: type)
+        addAttribute(name:"Extension", value: fileExtension)
     }
 
 }
@@ -39,12 +39,14 @@ class ContentTypes: XMLDocument {
     let root = XMLElement(name: "Types")
 
     override init() {
-        root.addAttribute(XMLAttribute(key: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/content-types"))
+        root.addAttribute(name: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/content-types")
         root.addChild(DefaultType(type: "application/xml", fileExtension: "xml"))
         root.addChild(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
         root.addChild(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
 
-        super.init(rootElement: root)
+        super.init()
+
+        addChild(root)
 
         version = "1.0"
         characterEncoding = "UTF-8"

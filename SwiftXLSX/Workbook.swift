@@ -25,9 +25,9 @@ public class Workbook: XMLDocument  {
 
     public override init() {
 
-        root.addAttribute(XMLAttribute(key:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main"))
-        root.addAttribute(XMLAttribute(key:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006"))
-        root.addAttribute(XMLAttribute(key:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships"))
+        root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+        root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
+        root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
 
         sheets = Sheets()
         root.addChild(sheets)
@@ -35,8 +35,9 @@ public class Workbook: XMLDocument  {
         relationShips = Relationships(name: ".rels")
         contentTypes = ContentTypes()
 
-        super.init(rootElement: root)
-
+        super.init()
+        
+        addChild(root)
         version = "1.0"
         characterEncoding = "UTF-8"
         isStandalone = true

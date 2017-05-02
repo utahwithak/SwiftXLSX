@@ -12,9 +12,9 @@ class Relationship: XMLElement {
 
     init(id: String, type: String, target: String) {
         super.init(name: "Relationship", uri: nil)
-        addAttribute(XMLAttribute(key: "Id", value: id))
-        addAttribute(XMLAttribute(key: "Type", value: type))
-        addAttribute(XMLAttribute(key: "Target", value: target))
+        addAttribute(name: "Id", value: id)
+        addAttribute(name: "Type", value: type)
+        addAttribute(name: "Target", value: target)
     }
 
 }

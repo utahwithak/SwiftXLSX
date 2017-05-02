@@ -66,13 +66,13 @@ internal class Cell: XMLElement {
         self.value = value
         super.init(name: "c", uri: nil)
 
-        addAttribute(XMLAttribute(key: "r", value: identifier))
+        addAttribute(name: "r", value: identifier)
 
         updateChildren()
     }
 
     func updateChildren() {
-        let newElement = SimpleElement(name: "v", value: value.xmlValue)
+        let newElement = XMLElement(name:"v", stringValue: value.xmlValue)
 
         if childCount > 0 {
             replaceChild(at: 0, with: newElement)
@@ -81,7 +81,7 @@ internal class Cell: XMLElement {
         }
 
         if case .text(_, _) = value {
-            addAttribute(XMLAttribute(key: "t", value: "s"))
+            addAttribute(name: "t", value: "s")
         } else {
             removeAttribute(forName: "t")
         }

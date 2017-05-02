@@ -11,21 +11,21 @@ import Foundation
 class SharedStrings: XMLDocument {
 
     let root = XMLElement(name: "sst")
+
     override init() {
 
-        root.addAttribute(XMLAttribute(key:"xmlns", value: "http://schemas.openxmlformats.org/spreadsheetml/2006/main"))
+        root.addAttribute(name:"xmlns", value: "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
 
-        super.init(rootElement: root)
+        super.init()
+
+        addChild(root)
         version = "1.0"
         characterEncoding = "UTF-8"
         isStandalone = true
     }
-
-    private var strings = [SharedString]()
-
     func add(_ value: String) -> Int {
-        let index = strings.count
-        strings.append(SharedString(text: value))
+        let index = root.childCount
+        root.addChild(SharedString(text: value))
         return index
     }
     var id: String = "rId0"
@@ -42,7 +42,7 @@ class SharedStrings: XMLDocument {
     }
 
     func removeShared(at index: Int) {
-        strings.remove(at: index)
+        removeChild(at: index)
     }
 
 }
@@ -71,7 +71,6 @@ extension SharedStrings: RelationshipItem {
 fileprivate class SharedString: XMLElement {
     init(text: String) {
         super.init(name: "si", uri: nil)
-        addChild(SimpleElement(name: "t", value: text))
-
+        addChild(XMLElement(name: "t", stringValue: text))
     }
 }

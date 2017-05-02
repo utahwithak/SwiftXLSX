@@ -23,14 +23,15 @@ public class Worksheet: XMLDocument {
         data = SheetData(sharedStrings: sharedStrings)
         root.addChild(data)
 
-        root.addAttribute(XMLAttribute(key:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main\""))
-        root.addAttribute(XMLAttribute(key:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships"))
-        root.addAttribute(XMLAttribute(key:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006"))
-        root.addAttribute(XMLAttribute(key:"mc:Ignorable", value:"x14ac"))
-        root.addAttribute(XMLAttribute(key:"xmlns:x14ac", value:"http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac"))
+        root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+        root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
+        root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
+        root.addAttribute(name:"mc:Ignorable", value:"x14ac")
+        root.addAttribute(name:"xmlns:x14ac", value:"http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac")
 
-        super.init(rootElement: root)
-        
+        super.init()
+
+        addChild(root)
         version = "1.0"
         characterEncoding = "UTF-8"
         isStandalone = true
@@ -38,9 +39,9 @@ public class Worksheet: XMLDocument {
 
     func sheetElement() -> XMLElement {
         let sheet = XMLElement(name: "sheet")
-        sheet.addAttribute(XMLAttribute(name: "name", value: sheetName.validXMLString))
-        sheet.addAttribute(XMLAttribute(name: "r:id", value: "rid\(sheetId)"))
-        sheet.addAttribute(XMLAttribute(name: "sheetId", value: "\(sheetId)"))
+        sheet.addAttribute(name: "name", value: sheetName)
+        sheet.addAttribute(name: "r:id", value: "rId\(sheetId)")
+        sheet.addAttribute(name: "sheetId", value: "\(sheetId)")
         return sheet
 
     }

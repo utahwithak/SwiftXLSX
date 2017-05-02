@@ -30,7 +30,7 @@ public class Row: XMLElement {
 
         super.init(name: "row", uri: nil)
 
-        addAttribute(XMLAttribute(key: "r", value: "\(id + 1)"))
+        addAttribute(name: "r", value: "\(id + 1)")
     }
 
 
