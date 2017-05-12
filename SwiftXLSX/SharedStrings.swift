@@ -69,8 +69,19 @@ extension SharedStrings: RelationshipItem {
 }
 
 fileprivate class SharedString: XMLElement {
+    private static let controlChars = CharacterSet.controlCharacters
     init(text: String) {
         super.init(name: "si", uri: nil)
-        addChild(XMLElement(name: "t", stringValue: text))
+        let cleaned: String
+        if text.rangeOfCharacter(from: SharedString.controlChars) != nil {
+            var temp = text
+            while let range = temp.rangeOfCharacter(from: SharedString.controlChars) {
+                temp.removeSubrange(range)
+            }
+            cleaned = temp
+        } else {
+            cleaned = text
+        }
+        addChild(XMLElement(name: "t", stringValue: cleaned))
     }
 }
