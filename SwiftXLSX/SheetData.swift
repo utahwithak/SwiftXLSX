@@ -28,3 +28,44 @@ class SheetData: XMLElement {
     }
     
 }
+
+extension SheetData: XMLParserDelegate {
+
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "row" {
+            guard let rStr = attributeDict["r"], let id = Int(rStr) else {
+                fatalError("No row ID!")
+            }
+            maxRow = max(id, maxRow)
+            let newRow = Row(id: id - 1, sharedStrings: sharedStrings)
+            addChild(newRow)
+        } else if elementName == "c" {
+            guard let curRow = children?.last as? Row else {
+                fatalError("missing row!")
+            }
+
+            curRow.addColumn(attributeDict)
+        }
+
+    }
+
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        guard let curRow = children?.last as? Row else {
+            return
+        }
+
+        guard let lastAddedCell = curRow.children?.last as? Cell else {
+            return
+        }
+
+        if lastAddedCell.attribute(forName: "t")?.stringValue == "s", let index = Int(string) {
+            lastAddedCell.value = .text(string: sharedStrings, index: index)
+        } else if let intVal = Int(string)  {
+            lastAddedCell.value = .integer(intVal)
+        } else if let doubVal = Double(string) {
+            lastAddedCell.value = .double(doubVal)
+        }
+
+    }
+
+}

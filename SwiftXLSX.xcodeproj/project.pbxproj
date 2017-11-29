@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F49B4A91EB7FE38001B328C /* XMLElement+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49B4A81EB7FE38001B328C /* XMLElement+Additions.swift */; };
+		8F74FA481FC3567D008D8B4A /* Book1.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 8F74FA431FC3567D008D8B4A /* Book1.xlsx */; };
 		8FF9E8491EB3A5B3003B2DB0 /* SwiftXLSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */; };
 		8FF9E84E1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */; };
 		8FF9E8501EB3A5B3003B2DB0 /* SwiftXLSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -15,7 +16,6 @@
 		8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */; };
 		8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */; };
 		8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */; };
-		8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8741EB3A634003B2DB0 /* Relationship.swift */; };
 		8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */; };
 		8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8761EB3A634003B2DB0 /* Relationships.swift */; };
 		8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8771EB3A634003B2DB0 /* Row.swift */; };
@@ -95,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		8F49B4A81EB7FE38001B328C /* XMLElement+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+Additions.swift"; sourceTree = "<group>"; };
+		8F74FA431FC3567D008D8B4A /* Book1.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Book1.xlsx; sourceTree = "<group>"; };
 		8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftXLSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftXLSX.h; sourceTree = "<group>"; };
 		8FF9E8431EB3A5B3003B2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTypes.swift; sourceTree = "<group>"; };
 		8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentContentItem.swift; sourceTree = "<group>"; };
 		8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileHandle+Additions.swift"; sourceTree = "<group>"; };
-		8FF9E8741EB3A634003B2DB0 /* Relationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
 		8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipItem.swift; sourceTree = "<group>"; };
 		8FF9E8761EB3A634003B2DB0 /* Relationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationships.swift; sourceTree = "<group>"; };
 		8FF9E8771EB3A634003B2DB0 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
@@ -178,6 +178,7 @@
 		8FF9E84C1EB3A5B3003B2DB0 /* SwiftXLSXTests */ = {
 			isa = PBXGroup;
 			children = (
+				8F74FA431FC3567D008D8B4A /* Book1.xlsx */,
 				8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */,
 				8FF9E84F1EB3A5B3003B2DB0 /* Info.plist */,
 			);
@@ -207,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				8FF9E8761EB3A634003B2DB0 /* Relationships.swift */,
-				8FF9E8741EB3A634003B2DB0 /* Relationship.swift */,
 				8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */,
 			);
 			name = Relationships;
@@ -296,6 +296,7 @@
 					8FF9E8471EB3A5B3003B2DB0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = QV4QS82KBT;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -374,6 +375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F74FA481FC3567D008D8B4A /* Book1.xlsx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FF9E8811EB3A634003B2DB0 /* Relationship.swift in Sources */,
 				8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */,
 				8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */,
 				8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */,
@@ -593,7 +594,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.datum.SwiftXLSXTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -607,7 +609,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.datum.SwiftXLSXTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

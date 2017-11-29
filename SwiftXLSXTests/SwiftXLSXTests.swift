@@ -20,10 +20,20 @@ class SwiftXLSXTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSimpleInit() {
+        let bundle = Bundle(for: type(of:self))
+        guard let url = bundle.url(forResource: "Book1", withExtension: "xlsx") else {
+            XCTFail()
+            return
+        }
+
+        guard Workbook(path: url) != nil else {
+            XCTFail()
+            return
+        }
+
     }
     
     func testPerformanceExample() {

@@ -33,6 +33,12 @@ public class Row: XMLElement {
         addAttribute(name: "r", value: "\(id + 1)")
     }
 
+    public func addColumn(_ attributes: [String: String]) {
+        
+        let cell = Cell(row: id, attributes: attributes)
+        addChild(cell)
+    }
+
 
     /// Will set column data from 0..<data.count to be the value in the array
     ///

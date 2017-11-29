@@ -26,10 +26,37 @@ public class Worksheet: XMLDocument {
         root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
         root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
         root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
-        root.addAttribute(name:"mc:Ignorable", value:"x14ac")
+        root.addAttribute(name:"mc:Ignorable", value:"")
         root.addAttribute(name:"xmlns:x14ac", value:"http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac")
 
         super.init()
+
+        addChild(root)
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
+    }
+
+    internal init?(path: URL, sheetName: String, id: Int, sharedStrings: SharedStrings) {
+        self.sheetName = sheetName
+        self.sheetId = id
+
+        guard let parser = XMLParser(contentsOf: path) else {
+            return nil
+        }
+
+        data = SheetData(sharedStrings: sharedStrings)
+
+        super.init()
+
+        parser.delegate = self
+        guard parser.parse() else {
+            return nil
+        }
+
+
+
+
 
         addChild(root)
         version = "1.0"
@@ -86,4 +113,18 @@ extension Worksheet: RelationshipItem {
     var target: String {
         return "worksheets/sheet\(sheetId).xml"
     }
+}
+
+extension Worksheet: XMLParserDelegate {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        if elementName == "worksheet" {
+            for (key,value) in attributeDict {
+                root.addAttribute(name: key, value: value)
+            }
+        } else if elementName == "sheetData" {
+            parser.delegate = data
+
+        }
+    }
+    
 }

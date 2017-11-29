@@ -23,11 +23,29 @@ class SharedStrings: XMLDocument {
         characterEncoding = "UTF-8"
         isStandalone = true
     }
+
+    init?(under path: URL) {
+        guard let parser = XMLParser(contentsOf: path.appendingPathComponent("sharedStrings.xml")) else {
+            return nil
+        }
+
+        super.init()
+        parser.delegate = self
+        guard parser.parse() else {
+            return nil
+        }
+        addChild(root)
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
+    }
+
     func add(_ value: String) -> Int {
         let index = root.childCount
         root.addChild(SharedString(text: value))
         return index
     }
+
     var id: String = "rId0"
 
     func write(under parentDir: URL) throws {
@@ -84,4 +102,20 @@ fileprivate class SharedString: XMLElement {
         }
         addChild(XMLElement(name: "t", stringValue: cleaned))
     }
+}
+
+extension SharedStrings: XMLParserDelegate {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        if elementName == "sst" {
+            for (key,value) in attributeDict {
+                root.addAttribute(name: key, value: value)
+            }
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        root.addChild(SharedString(text: string))
+
+    }
+
 }

@@ -19,7 +19,12 @@ fileprivate class OverrideType: XMLElement, ContentType {
         addAttribute(name: "ContentType", value: type)
         addAttribute(name: "PartName", value: part)
     }
-
+    init(attributes: [String: String]) {
+        super.init(name: "Override", uri: nil)
+        for (key, value) in attributes {
+            addAttribute(name: key, value: value)
+        }
+    }
 }
 
 fileprivate class DefaultType: XMLElement, ContentType {
@@ -30,6 +35,13 @@ fileprivate class DefaultType: XMLElement, ContentType {
         addAttribute(name:"Extension", value: fileExtension)
     }
 
+    init(attributes: [String: String]) {
+        super.init(name: "Default", uri: nil)
+        for (key, value) in attributes {
+            addAttribute(name: key, value: value)
+        }
+    }
+
 }
 
 
@@ -37,7 +49,9 @@ class ContentTypes: XMLDocument {
 
 
     let root = XMLElement(name: "Types")
-
+    override func rootElement() -> XMLElement? {
+        return root
+    }
     override init() {
         root.addAttribute(name: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/content-types")
         root.addChild(DefaultType(type: "application/xml", fileExtension: "xml"))
@@ -45,6 +59,27 @@ class ContentTypes: XMLDocument {
         root.addChild(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
 
         super.init()
+
+        addChild(root)
+
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
+    }
+
+    init?(under path: URL) {
+    
+        guard let parser = XMLParser(contentsOf: path.appendingPathComponent("[Content_Types].xml")) else {
+            return nil
+        }
+
+        super.init()
+
+        parser.delegate = self
+
+        guard parser.parse() else {
+            return nil
+        }
 
         addChild(root)
 
@@ -68,4 +103,19 @@ class ContentTypes: XMLDocument {
         try xmlData.write(to: path)
 
     }
+}
+
+extension ContentTypes: XMLParserDelegate {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        if elementName == "Types" {
+            for (key,value) in attributeDict {
+                root.addAttribute(name: key, value: value)
+            }
+        } else if elementName == "Default" {
+            root.addChild(DefaultType(attributes: attributeDict))
+        } else if elementName == "Override" {
+            root.addChild(OverrideType(attributes: attributeDict))
+        }
+    }
+
 }

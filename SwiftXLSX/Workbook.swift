@@ -17,17 +17,23 @@ public class Workbook: XMLDocument  {
 
     let sheets: Sheets
 
-    let sharedStrings = SharedStrings()
+    let sharedStrings: SharedStrings
 
     var id: String = "rId1"
 
     let root = XMLElement(name:"workbook")
+
+    override public func rootElement() -> XMLElement? {
+        return root
+    }
 
     public override init() {
 
         root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
         root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
         root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
+
+        sharedStrings = SharedStrings()
 
         sheets = Sheets()
         root.addChild(sheets)
@@ -47,11 +53,76 @@ public class Workbook: XMLDocument  {
         contentTypes.add(document: sharedStrings)
     }
 
+    public init?(path: URL, password: String? = nil) {
+        let subCacheDirectory = "tmpDoc"
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("saveDir")
+        defer {
+            do {
+                try FileManager.default.removeItem(at: tempDirURL)
+            } catch {
+                print("Failed to clean up \(error)")
+            }
+        }
 
-    deinit {
+        do {
+            try Zip.unzipFile(path, destination: tempDirURL, overwrite: true, password: password, progress: nil)
+        } catch {
+            print("Failed to unzip to temp dir:\(error)")
+            return nil
+        }
+
+        guard let contentTypes = ContentTypes(under: tempDirURL), let rels = Relationships(path: tempDirURL.appendingPathComponent("_rels/.rels")) else {
+            return nil
+        }
+
+        self.contentTypes = contentTypes
+        relationShips = rels
+
+        let xlPath =  tempDirURL.appendingPathComponent("xl", isDirectory: true)
+
+        let worksheetURL = xlPath.appendingPathComponent("workbook.xml")
+        guard let doc = try? XMLDocument(contentsOf: worksheetURL, options: []), let workbookSheets = doc.children?.first?.children?.first(where: { $0.name == "sheets"}) else {
+            return nil
+        }
+
+        guard let xmlNodes = workbookSheets.children?.flatMap({ ($0 as? XMLElement)?.attributes}) else {
+            return nil
+        }
+
+        var sheetAttributes = [[String: String]]()
+        for nodeVals in xmlNodes {
+            var attrs = [String: String]()
+            for node in nodeVals {
+                if let name = node.name {
+                    attrs[name] = node.stringValue
+                }
+            }
+
+            sheetAttributes.append(attrs)
+        }
+
+        guard let strings = SharedStrings(under: xlPath), let sheets = Sheets(under: xlPath, strings: strings, idMaps: sheetAttributes) else {
+            return nil
+        }
+
+        self.sharedStrings = strings
+        self.sheets = sheets
+
+        root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
+        root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
+        root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
+
+        root.addChild(sheets)
+
+        
+        super.init()
+
+        version = "1.0"
+        characterEncoding = "UTF-8"
+        isStandalone = true
+
 
     }
-
 
     public func addSheet(named name: String) -> Worksheet {
         let sheet = sheets.newSheet(named: name, sharedStrings: sharedStrings)

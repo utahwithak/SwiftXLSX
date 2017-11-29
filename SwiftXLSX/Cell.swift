@@ -45,6 +45,20 @@ internal class Cell: XMLElement {
         return id;
     }
 
+    static func identifierToCol(_ ident: String) -> Int {
+        let nums = ident.uppercased().flatMap({ validColumnLetters.index(of: "\($0)" )})
+
+
+        var sum = 0
+        for val in nums {
+            sum *= 26
+            sum += (val + 1)
+        }
+
+        return sum
+
+    }
+
     let row: Int
 
     let column: Int
@@ -69,6 +83,21 @@ internal class Cell: XMLElement {
         addAttribute(name: "r", value: identifier)
 
         updateChildren()
+    }
+
+    init(row: Int, attributes: [String: String]) {
+        self.row = row
+        self.value = .integer(0)
+
+        guard let identifier = attributes["r"] else {
+            fatalError("no identifier!")
+        }
+        column = Cell.identifierToCol(identifier)
+        super.init(name: "c", uri: nil)
+
+        for attr in attributes {
+            addAttribute(name: attr.key, value: attr.value)
+        }
     }
 
     func updateChildren() {
