@@ -19,10 +19,12 @@ class SheetData: XMLElement {
 
     private var maxRow = 0
 
+    private var currentRow: Row?
+
     func newRow() -> Row {
         let newRow = Row(id: maxRow, sharedStrings: sharedStrings)
         maxRow += 1
-
+        currentRow = newRow
         addChild(newRow)
         return newRow
     }
@@ -39,8 +41,9 @@ extension SheetData: XMLParserDelegate {
             maxRow = max(id, maxRow)
             let newRow = Row(id: id - 1, sharedStrings: sharedStrings)
             addChild(newRow)
+            currentRow = newRow
         } else if elementName == "c" {
-            guard let curRow = children?.last as? Row else {
+            guard let curRow = currentRow else {
                 fatalError("missing row!")
             }
 
@@ -48,9 +51,14 @@ extension SheetData: XMLParserDelegate {
         }
 
     }
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "row" {
+            currentRow = nil
+        }
+    }
 
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        guard let curRow = children?.last as? Row else {
+        guard let curRow = currentRow else {
             return
         }
 

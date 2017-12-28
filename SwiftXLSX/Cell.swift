@@ -32,6 +32,8 @@ internal class Cell: XMLElement {
 
     private static let validColumnLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
+    private static let columnChars: [Character] = Cell.validColumnLetters.map({ $0.first! })
+
     static func colToString(_ column: Int) -> String {
 
         var id = ""
@@ -46,7 +48,7 @@ internal class Cell: XMLElement {
     }
 
     static func identifierToCol(_ ident: String) -> Int {
-        let nums = ident.uppercased().flatMap({ validColumnLetters.index(of: "\($0)" )})
+        let nums = ident.uppercased().flatMap({ columnChars.index(of: $0 )})
 
 
         var sum = 0

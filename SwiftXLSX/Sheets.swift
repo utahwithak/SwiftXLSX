@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Sheets: XMLElement {
+public class Sheets: XMLElement {
 
     let relationships:Relationships
 
-    var sheets = [Worksheet]()
+    public private(set) var sheets = [Worksheet]()
 
     init() {
         relationships = Relationships(name:"workbook.xml.rels")

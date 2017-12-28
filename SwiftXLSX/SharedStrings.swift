@@ -12,6 +12,8 @@ class SharedStrings: XMLDocument {
 
     let root = XMLElement(name: "sst")
 
+    private var curString: SharedString?
+
     override init() {
 
         root.addAttribute(name:"xmlns", value: "http://schemas.openxmlformats.org/spreadsheetml/2006/main")
@@ -44,6 +46,14 @@ class SharedStrings: XMLDocument {
         let index = root.childCount
         root.addChild(SharedString(text: value))
         return index
+    }
+
+    func string(at index: Int) -> String? {
+        guard index < root.childCount, let sharedstring = root.child(at: index) as? SharedString else {
+            return nil
+        }
+
+        return sharedstring.elements(forName: "t").first?.stringValue
     }
 
     var id: String = "rId0"
@@ -90,18 +100,32 @@ fileprivate class SharedString: XMLElement {
     private static let controlChars = CharacterSet.controlCharacters
     init(text: String) {
         super.init(name: "si", uri: nil)
-        let cleaned: String
-        if text.rangeOfCharacter(from: SharedString.controlChars) != nil {
-            var temp = text
-            while let range = temp.rangeOfCharacter(from: SharedString.controlChars) {
-                temp.removeSubrange(range)
-            }
-            cleaned = temp
-        } else {
-            cleaned = text
-        }
-        addChild(XMLElement(name: "t", stringValue: cleaned))
+        self.text = text
     }
+
+    var text: String {
+        get {
+            return elements(forName: "t").first?.stringValue ?? ""
+        }
+        set {
+            while childCount > 0 {
+                removeChild(at: 0)
+            }
+            let cleaned: String
+            if newValue.rangeOfCharacter(from: SharedString.controlChars) != nil {
+                var temp = newValue
+                while let range = temp.rangeOfCharacter(from: SharedString.controlChars) {
+                    temp.removeSubrange(range)
+                }
+                cleaned = temp
+            } else {
+                cleaned = newValue
+            }
+            addChild(XMLElement(name: "t", stringValue: cleaned))
+        }
+
+    }
+
 }
 
 extension SharedStrings: XMLParserDelegate {
@@ -110,11 +134,26 @@ extension SharedStrings: XMLParserDelegate {
             for (key,value) in attributeDict {
                 root.addAttribute(name: key, value: value)
             }
+        } else if elementName == "si" {
+            let str = SharedString(text: "")
+            root.addChild(str)
+            curString = str
+        }
+    }
+
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "si" {
+            curString = nil
         }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        root.addChild(SharedString(text: string))
+        guard let currentParse = curString else{
+            print("NO CURRENT STRING!")
+            return
+        }
+
+        currentParse.text = string
 
     }
 

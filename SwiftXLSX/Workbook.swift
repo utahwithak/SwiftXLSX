@@ -15,7 +15,7 @@ public class Workbook: XMLDocument  {
 
     let relationShips: Relationships
 
-    let sheets: Sheets
+    public let sheets: Sheets
 
     let sharedStrings: SharedStrings
 

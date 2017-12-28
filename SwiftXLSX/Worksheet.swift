@@ -10,7 +10,7 @@ import Foundation
 
 public class Worksheet: XMLDocument {
 
-    fileprivate let sheetName: String
+    public let sheetName: String
 
     fileprivate let sheetId: Int
 
@@ -54,14 +54,21 @@ public class Worksheet: XMLDocument {
             return nil
         }
 
-
-
-
-
         addChild(root)
         version = "1.0"
         characterEncoding = "UTF-8"
         isStandalone = true
+    }
+
+    public func flatData() -> [[XLSXExpressible?]]? {
+        guard let rows = data.children as? [Row] else {
+            return nil
+        }
+
+        let maxColCount = rows.reduce(0, {max($0, $1.maxColumnCount)})
+
+        return rows.map({ $0.rowData(paddedTo: maxColCount)})
+
     }
 
     func sheetElement() -> XMLElement {
