@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Zip
+import Compression
 
 public class Workbook: XMLDocument  {
 
@@ -55,20 +55,19 @@ public class Workbook: XMLDocument  {
 
     public init?(path: URL, password: String? = nil) {
 
-        Zip.addCustomFileExtension(path.pathExtension)
+        // This returns a URL? even though it is an NSURL class method
+        guard let tempDirURL = NSURL.fileURL(withPathComponents: [NSTemporaryDirectory(), NSUUID().uuidString]) else {
+            return nil
+        }
+        let fileManager = FileManager.default
 
-        let subCacheDirectory = "tmpDoc"
-        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("saveDir")
         defer {
-            do {
-                try FileManager.default.removeItem(at: tempDirURL)
-            } catch {
-                print("Failed to clean up \(error)")
-            }
+            try? fileManager.removeItem(at: tempDirURL)
         }
 
         do {
-            try Zip.unzipFile(path, destination: tempDirURL, overwrite: true, password: password, progress: nil)
+            try fileManager.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
+            try fileManager.unzipItem(at: path, to: tempDirURL)
         } catch {
             print("Failed to unzip to temp dir:\(error)")
             return nil
@@ -146,15 +145,16 @@ public class Workbook: XMLDocument  {
             }
         }
 
-        try FileManager.default.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
+        let fileManager = FileManager.default
+        try fileManager.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
 
         let tmpPath = tempDirURL.appendingPathComponent(subCacheDirectory)
-        try FileManager.default.createDirectory(at: tmpPath, withIntermediateDirectories: true, attributes: nil)
+        try fileManager.createDirectory(at: tmpPath, withIntermediateDirectories: true, attributes: nil)
         try contentTypes.write(under: tmpPath)
         try relationShips.write(under: tmpPath)
 
         let xlPath = tmpPath.appendingPathComponent("xl")
-        try FileManager.default.createDirectory(at: xlPath, withIntermediateDirectories: true, attributes: nil)
+        try fileManager.createDirectory(at: xlPath, withIntermediateDirectories: true, attributes: nil)
 
         //workbook file
         let workbookData = xmlData
@@ -168,7 +168,8 @@ public class Workbook: XMLDocument  {
         // write at end
         try sharedStrings.write(under: xlPath)
 
-        try Zip.zipFiles(under: tmpPath, to: path)
+        try fileManager.zipItem(at: xlPath, to: path)
+
     }
 
 }

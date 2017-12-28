@@ -36,10 +36,20 @@ class SwiftXLSXTests: XCTestCase {
 
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    func testMainXLSXPerformance() {
+        let bundle = Bundle(for: type(of:self))
+        guard let url = bundle.url(forResource: "mainXLSX", withExtension: "xlsx") else {
+            XCTFail()
+            return
+        }
+
+
         self.measure {
-            // Put the code you want to measure the time of here.
+
+            guard Workbook(path: url) != nil else {
+                XCTFail()
+                return
+            }
         }
     }
     
