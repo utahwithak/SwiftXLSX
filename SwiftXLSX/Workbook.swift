@@ -54,6 +54,9 @@ public class Workbook: XMLDocument  {
     }
 
     public init?(path: URL, password: String? = nil) {
+
+        Zip.addCustomFileExtension(path.pathExtension)
+
         let subCacheDirectory = "tmpDoc"
         let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("saveDir")
         defer {
