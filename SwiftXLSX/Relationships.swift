@@ -7,123 +7,107 @@
 //
 
 import Foundation
-class Relationship: XMLElement {
+class Relationship {
+    let name = "Relationship"
+    let id: String
+    let type: String
+    let target: String
+
+    var attributes: [String: String] {
+        return ["Id": id, "Type": type, "Target": target]
+    }
 
     init(id: String, type: String, target: String) {
-        super.init(name: "Relationship", uri: nil)
-        addAttribute(name: "Id", value: id)
-        addAttribute(name: "Type", value: type)
-        addAttribute(name: "Target", value: target)
+        self.id = id
+        self.type = type
+        self.target = target
     }
 
-    init(attributes: [String: String]) {
-        super.init(name: "Relationship", uri: nil)
-        for (key, value) in attributes {
-            addAttribute(name: key, value: value)
+    convenience init?(from element: XMLElement) {
+        guard let id = element.attribute(forName: "Id")?.stringValue, let type = element.attribute(forName: "Type")?.stringValue, let target = element.attribute(forName: "Target")?.stringValue else {
+            return nil
         }
-    }
+        self.init(id: id, type: type, target: target)
 
-    var id: String {
-        return attribute(forName: "Id")?.stringValue ?? ""
     }
-    var type: String {
-        return attribute(forName: "Type")?.stringValue ?? ""
-    }
-    var target: String {
-        return attribute(forName: "Target")?.stringValue ?? ""
-    }
-
 }
 
-class Relationships: XMLDocument {
+class Relationships {
 
-    let fileName: String
+    private var relationships: [Relationship]
 
-    let root = XMLElement(name: "Relationships")
-
-    override func rootElement() -> XMLElement? {
-        return root
+    init() {
+        relationships = [Relationship]()
     }
 
-    init(name: String) {
-        fileName = name
-        root.addAttribute(name: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/relationships")
+    init(from document: XMLDocument) throws {
 
-        super.init()
-        addChild(root)
-
-        version = "1.0"
-        characterEncoding = "UTF-8"
-        isStandalone = true
+        guard let root = document.children?.first( where: {$0.name == "Relationships" }), let rawRels = root.children as? [XMLElement], !rawRels.isEmpty else {
+            throw SwiftXLSX.missingContent("Relationships")
+        }
         
-    }
+        relationships = rawRels.flatMap { Relationship(from: $0) }
 
-    init?(path: URL, options mask: XMLNode.Options = [] ) {
-
-        guard let parser = XMLParser(contentsOf: path) else {
-            return nil
+        guard relationships.count == rawRels.count else {
+            throw SwiftXLSX.missingContent("Relationship count doesn't match")
         }
 
-        fileName = path.lastPathComponent
-
-        super.init()
-        addChild(root)
-
-        parser.delegate = self
-
-        guard parser.parse() else {
-            return nil
-        }
-
-        version = "1.0"
-        characterEncoding = "UTF-8"
-        isStandalone = true
-
     }
 
-    func relationships(of type: String) -> [Relationship] {
-        return root.children?.flatMap({ $0 as? Relationship}).filter({ $0.attribute(forName: "Type")?.stringValue == type}) ?? []
+
+    func relationships(matching type: String) -> [Relationship] {
+        return relationships.filter({ $0.type == type})
     }
 
-    func write(under parentDir: URL) throws {
+    func target(for id: String) -> String? {
+        return relationships.first(where: { $0.id == id})?.target
+    }
 
-        let subDir = parentDir.appendingPathComponent("_rels")
-        try FileManager.default.createDirectory(at: subDir, withIntermediateDirectories: true, attributes: nil)
-        let filePath = subDir.appendingPathComponent(fileName)
-
-        try xmlData.write(to: filePath)
+    func write(under parentDir: URL, fileName: String) throws {
+//
+//        let subDir = parentDir.appendingPathComponent("_rels")
+//        try FileManager.default.createDirectory(at: subDir, withIntermediateDirectories: true, attributes: nil)
+//        let filePath = subDir.appendingPathComponent(fileName)
+//
+////        try xmlData.write(to: filePath)
     }
 
     func add(file: RelationshipItem) {
-        root.addChild(Relationship(id: file.id, type: file.type, target: file.target))
+//        rootElement()?.addChild(Relationship(id: file.id, type: file.type, target: file.target))
+    }
+
+    func add(type: String, target: String) -> Relationship {
+        let created = Relationship(id: "rId\(relationships.count + 1)", type: type, target: target)
+        relationships.append(created)
+        return created
     }
 }
 
-
-extension Relationships: XMLParserDelegate {
-
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        if elementName == "Relationships" {
-            for (key,value) in attributeDict {
-                root.addAttribute(name: key, value: value)
-            }
-        } else if elementName == "Relationship" {
-            root.addChild(Relationship(attributes: attributeDict))
-        } else {
-            print("Unknown element: \(elementName)!")
-        }
-    }
-
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-
-    }
-
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-
-    }
-
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-
-    }
-}
+//
+//extension Relationships: XMLParserDelegate {
+//
+//    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+//        if elementName == "Relationships" {
+//            for (key,value) in attributeDict {
+//                root.addAttribute(name: key, value: value)
+//            }
+//        } else if elementName == "Relationship" {
+//            root.addChild(Relationship(attributes: attributeDict))
+//        } else {
+//            print("Unknown element: \(elementName)!")
+//        }
+//    }
+//
+//    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+//
+//    }
+//
+//    func parser(_ parser: XMLParser, foundCharacters string: String) {
+//
+//    }
+//
+//    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+//
+//    }
+//}
 

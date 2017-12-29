@@ -8,42 +8,41 @@
 
 import Foundation
 
-public protocol XLSXExpressible {
-
-}
-
+public protocol XLSXExpressible { }
 extension String: XLSXExpressible {}
 extension Int: XLSXExpressible {}
 extension Double: XLSXExpressible {}
 extension Float: XLSXExpressible {}
 
 
-
-public class Row: XMLElement {
+public class Row {
 
     let id: Int
 
-    let sharedStrings: SharedStrings
+    private var cells = [Cell]()
 
-    internal init(id: Int, sharedStrings: SharedStrings) {
+    internal init(id: Int) {
         self.id = id
-        self.sharedStrings = sharedStrings
-
-        super.init(name: "row", uri: nil)
-
-        addAttribute(name: "r", value: "\(id + 1)")
+//
+//        super.init(name: "row", uri: nil)
+//
+//        addAttribute(name: "r", value: "\(id + 1)")
     }
+    internal init(from element: XMLElement, strings: SharedStrings) throws {
+        guard let idStr = element.attribute(forName: "r")?.stringValue, let id = Int(idStr) else {
+            throw SwiftXLSX.missingContent("Missing Row Id")
+        }
 
-    public func addColumn(_ attributes: [String: String]) {
+        self.id = id
+
+        if let rawColumns = element.children as? [XMLElement] {
+            cells = try rawColumns.map { return try Cell(row: id, element: $0, strings: strings) }
+        }
+
         
-        let cell = Cell(row: id, attributes: attributes)
-        addChild(cell)
     }
 
     public var rawData: [XLSXExpressible?] {
-        guard let cells = children as? [Cell] else {
-            return []
-        }
 
         let maxCol = cells.reduce(0, { max($0, $1.column)})
 
@@ -54,8 +53,8 @@ public class Row: XMLElement {
                 row[cell.column] = dbl
             case .integer(let int):
                 row[cell.column] = int
-            case .text(string: let sharedStrings, index: let index):
-                row[cell.column] = sharedStrings.string(at: index)
+            case .text(let text):
+                row[cell.column] = text
             case .float( let flt):
                 row[cell.column] = flt
             }
@@ -66,18 +65,10 @@ public class Row: XMLElement {
     }
 
     public var maxColumnCount: Int {
-        guard let cells = children as? [Cell] else {
-            return 0
-        }
-
         return cells.reduce(0, { max($0, $1.column)})
     }
 
     public func rowData(paddedTo width: Int) -> [XLSXExpressible?] {
-
-        guard let cells = children as? [Cell] else {
-            return []
-        }
 
         var row = [XLSXExpressible?](repeating: nil, count: width)
 
@@ -90,8 +81,8 @@ public class Row: XMLElement {
                 row[column] = dbl
             case .integer(let int):
                 row[column] = int
-            case .text(string: let sharedStrings, index: let index):
-                row[column] = sharedStrings.string(at: index)
+            case .text(let text):
+                row[column] = text
             case .float( let flt):
                 row[column] = flt
             }
@@ -104,30 +95,27 @@ public class Row: XMLElement {
     ///
     /// - Parameter data: values for columns 0..<data.count
     public func setColumnData(_ data: [XLSXExpressible]) {
-        if childCount == 0 {
-            for (column, value) in data.enumerated() {
+        cells.removeAll(keepingCapacity: true)
+        for (column, value) in data.enumerated() {
 
-                let xlsxValue: XLSValue
-                switch value {
-                case let x as Int:
-                    xlsxValue = .integer(x)
-                case let x as Double:
-                    xlsxValue = .double(x)
-                case let x as String:
-                    let index = sharedStrings.add(x)
-                    xlsxValue = .text(string: sharedStrings, index: index)
-                case let x as Float:
-                    xlsxValue = .float(x)
-                default:
-                    fatalError("Unknown XLSXExpressible!")
-                }
-
-                let cell = Cell(row: id, column: column, value: xlsxValue)
-                addChild(cell)
+            let xlsxValue: XLSValue
+            switch value {
+            case let x as Int:
+                xlsxValue = .integer(x)
+            case let x as Double:
+                xlsxValue = .double(x)
+            case let x as String:
+                xlsxValue = .text(x)
+            case let x as Float:
+                xlsxValue = .float(x)
+            default:
+                fatalError("Unknown XLSXExpressible!")
             }
+            let cell = Cell(row: id, column: column, value: xlsxValue)
+            cells.append(cell)
 
-        } else {
-            fatalError("Not implemented!")
         }
+
+
     }
 }

@@ -29,9 +29,12 @@ class SwiftXLSXTests: XCTestCase {
             return
         }
 
-        guard Workbook(path: url) != nil else {
+        do{
+            let wb = try XLSXDocument(path: url)
+            print("wb: \(wb)")
+        }  catch  {
+            print("Failed to create workbook:\(error)")
             XCTFail()
-            return
         }
 
     }
@@ -43,14 +46,16 @@ class SwiftXLSXTests: XCTestCase {
             return
         }
 
-
-        self.measure {
-
-            guard Workbook(path: url) != nil else {
-                XCTFail()
-                return
-            }
-        }
+//
+//        self.measure {
+//            do{
+//                let wb = try Workbook(path: url)
+//                print("wb: \(wb)")
+//            }  catch  {
+//                XCTFail()
+//            }
+//
+//        }
     }
     
 }
