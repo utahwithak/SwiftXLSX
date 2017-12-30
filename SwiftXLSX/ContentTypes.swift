@@ -9,8 +9,7 @@
 import Foundation
 
 fileprivate protocol ContentType: class {
-    var name: String { get }
-    var attributes: [String: String] { get }
+    func writeTo(handle stream: FileHandle) throws
 }
 
 protocol DocumentContentItem {
@@ -18,9 +17,7 @@ protocol DocumentContentItem {
     var partName: String { get }
 }
 
-
 fileprivate class OverrideType: ContentType {
-    let name = "Override"
     let contentType: String
     let partName: String
 
@@ -40,10 +37,14 @@ fileprivate class OverrideType: ContentType {
         }
         self.init(type: type, part: part)
     }
+
+    func writeTo(handle stream: FileHandle) throws {
+        try stream.write(string: "<Override ContentType=\"\(contentType)\" PartName=\"\(partName)\"></Override>")
+    }
+
 }
 
 fileprivate class DefaultType: ContentType {
-    let name = "Default"
     let contentType: String
     let ext: String
 
@@ -65,6 +66,10 @@ fileprivate class DefaultType: ContentType {
         self.init(type: type, fileExtension: part)
     }
 
+    func writeTo(handle stream: FileHandle) throws {
+        try stream.write(string: "<Default ContentType=\"\(contentType)\" Extension=\"\(ext)\"></Default>")
+    }
+
 }
 
 
@@ -76,6 +81,8 @@ class ContentTypes {
         types = [ContentType]()
         types.append(DefaultType(type: "application/xml", fileExtension: "xml"))
         types.append(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
+        types.append(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
+
     }
 
     init(from document: XMLDocument) throws {
@@ -112,11 +119,15 @@ class ContentTypes {
 
         let path = parentDir.appendingPathComponent("[Content_Types].xml")
 
-        if FileManager.default.fileExists(atPath: path.path) {
-            try FileManager.default.removeItem(at: path)
+        FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
+        let writeStream = try FileHandle(forUpdating: path)
+        try writeStream.write(string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">")
+        for type in types {
+            try type.writeTo(handle: writeStream)
         }
-//
-//        try xmlData.write(to: path)
+        
+        try writeStream.write(string: "</Types>")
+        writeStream.closeFile()
 
     }
 }

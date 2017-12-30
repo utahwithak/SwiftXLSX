@@ -66,6 +66,7 @@
 		8F91148E1FF5C2FE000B6D6A /* Archive+Writing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
 		8F91148F1FF5C2FE000B6D6A /* Data+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
 		8F9114901FF5C2FE000B6D6A /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		8F91149A1FF6AA55000B6D6A /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		8FB62BD01FF54097006188D2 /* mainXLSX.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mainXLSX.xlsx; sourceTree = "<group>"; };
 		8FB62BD71FF54377006188D2 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		8FB62C211FF56221006188D2 /* Archive+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Additions.swift"; sourceTree = "<group>"; };
@@ -110,6 +111,7 @@
 		8FB62BD61FF54377006188D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F91149A1FF6AA55000B6D6A /* libxml2.tbd */,
 				8FB62BD71FF54377006188D2 /* libcompression.tbd */,
 			);
 			name = Frameworks;

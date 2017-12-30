@@ -35,9 +35,13 @@ public class Row {
 
         self.id = id
 
-        if let rawColumns = element.children as? [XMLElement] {
-            cells = try rawColumns.map { return try Cell(row: id, element: $0, strings: strings) }
-        }
+        cells = try element.children?.flatMap {
+            if let element = $0 as? XMLElement {
+                return try Cell(row: id, element: element, strings: strings)
+            }
+            print("Failed to convert row")
+            return nil
+        } ?? []
 
         
     }
@@ -74,7 +78,6 @@ public class Row {
 
         for cell in cells {
             let column = cell.column - 1
-            print("Col:\(column)")
             assert(column >= 0)
             switch cell.value {
             case .double(let dbl):
@@ -115,7 +118,13 @@ public class Row {
             cells.append(cell)
 
         }
+    }
 
-
+    func write(to handle: FileHandle, with strings: SharedStrings) throws {
+        try handle.write(string: "<row r=\"\(id + 1)\">")
+        for cell in cells {
+            try cell.write(to: handle, with: strings)
+        }
+        try handle.write(string: "</row>")
     }
 }

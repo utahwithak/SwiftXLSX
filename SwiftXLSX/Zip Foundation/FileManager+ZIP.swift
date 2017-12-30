@@ -46,7 +46,7 @@ extension FileManager {
             let directoryPrefix = sourceURL.lastPathComponent
             while let entryPath = dirEnumerator?.nextObject() as? String {
                 let finalEntryPath = shouldKeepParent ? directoryPrefix + "/" + entryPath : entryPath
-                try archive.addEntry(with: finalEntryPath, relativeTo: sourceURL.deletingLastPathComponent())
+                try archive.addEntry(with: finalEntryPath, relativeTo: shouldKeepParent ? sourceURL.deletingLastPathComponent() : sourceURL )
             }
         } else {
             let baseURL = sourceURL.deletingLastPathComponent()

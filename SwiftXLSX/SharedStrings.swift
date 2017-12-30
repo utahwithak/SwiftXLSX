@@ -9,8 +9,13 @@
 import Foundation
 
 class SharedStrings {
+    private static let controlChars = CharacterSet.controlCharacters
 
     private var sharedStrings = [String]()
+
+    private var count = 0
+
+    private var writeStream: FileHandle?
 
     init() {
 
@@ -38,14 +43,26 @@ class SharedStrings {
     }
 
     func add(_ value: String) -> Int {
-
-        if let index = sharedStrings.index(of: value) {
-            return index
+        let index = count
+        let cleaned: String
+        if value.rangeOfCharacter(from: SharedStrings.controlChars) != nil {
+            var temp = value
+            while let range = temp.rangeOfCharacter(from: SharedStrings.controlChars) {
+                temp.removeSubrange(range)
+            }
+            cleaned = temp
+        } else {
+            cleaned = value
         }
 
-        sharedStrings.append(value)
+        if let writeStream = writeStream, let data = "<si><t>\(cleaned)</t></si>".data(using: .utf8) {
+            writeStream.write(data)
+        } else {
+            print("FAILED TO WRITE OUT SHARED STRING!")
+        }
 
-        return sharedStrings.count - 1
+        count += 1
+        return index
     }
 
     func string(at index: Int) -> String? {
@@ -57,69 +74,27 @@ class SharedStrings {
     }
 
 
+    func prepareForWriting(under parentDir: URL) throws {
+        let path = parentDir.appendingPathComponent("sharedStrings.xml")
+        FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
+        writeStream = try FileHandle(forUpdating: path)
+        try writeStream?.write(string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><sst xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">")
+    }
 
-    func write(under parentDir: URL) throws {
-//        let path = parentDir.appendingPathComponent("sharedStrings.xml")
-//
-//        if FileManager.default.fileExists(atPath: path.path) {
-//            try FileManager.default.removeItem(at: path)
-//        }
-//
-//        let data = xmlData
-//        try data.write(to: path)
+    func finishWriting() {
+        try? writeStream?.write(string: "</sst>")
+        writeStream?.closeFile()
+        writeStream = nil
     }
 
 }
 
-//extension SharedStrings: DocumentContentItem {
-//    
-//    var contentType: String {
-//        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"
-//    }
-//    var partName: String {
-//        return "/xl/sharedStrings.xml"
-//    }
-//}
+extension SharedStrings: DocumentContentItem {
 
-//extension SharedStrings: RelationshipItem {
-//
-//    var target: String {
-//        return "sharedStrings.xml"
-//    }
-//
-//    var type: String {
-//        return "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings"
-//    }
-//}
-
-//fileprivate class SharedString {
-//    private static let controlChars = CharacterSet.controlCharacters
-//    init(text: String) {
-//        self.text = text
-//    }
-//
-//    let text: String
-////        get {
-////            return elements(forName: "t").first?.stringValue ?? ""
-////        }
-////        set {
-////            while childCount > 0 {
-////                removeChild(at: 0)
-////            }
-////            let cleaned: String
-////            if newValue.rangeOfCharacter(from: SharedString.controlChars) != nil {
-////                var temp = newValue
-////                while let range = temp.rangeOfCharacter(from: SharedString.controlChars) {
-////                    temp.removeSubrange(range)
-////                }
-////                cleaned = temp
-////            } else {
-////                cleaned = newValue
-////            }
-////            addChild(XMLElement(name: "t", stringValue: cleaned))
-////        }
-////
-////    }
-//
-//}
-
+    var contentType: String {
+        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"
+    }
+    var partName: String {
+        return "/xl/sharedStrings.xml"
+    }
+}

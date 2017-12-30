@@ -23,31 +23,13 @@ public class XLSXDocument {
 
     let workbook: Workbook
 
-//    public override init() {
-//
-//        root.addAttribute(name:"xmlns", value:"http://schemas.openxmlformats.org/spreadsheetml/2006/main")
-//        root.addAttribute(name:"xmlns:mc", value:"http://schemas.openxmlformats.org/markup-compatibility/2006")
-//        root.addAttribute(name:"xmlns:r", value:"http://schemas.openxmlformats.org/officeDocument/2006/relationships")
-//
-//        sharedStrings = SharedStrings()
-//
-//        sheets = Sheets()
-//        root.addChild(sheets)
-//
-//        relationShips = Relationships(name: ".rels")
-//        contentTypes = ContentTypes()
-//
-//        super.init()
-//
-//        addChild(root)
-//        version = "1.0"
-//        characterEncoding = "UTF-8"
-//        isStandalone = true
-//
-//        contentTypes.add(document: self)
-//        relationShips.add(file: self)
-//        contentTypes.add(document: sharedStrings)
-//    }
+    public init() {
+        contentTypes = ContentTypes()
+        relationships = Relationships()
+        workbook = Workbook(in: relationships)
+
+        contentTypes.add(document: workbook)
+    }
 
     public init(path: URL) throws {
 
@@ -73,49 +55,34 @@ public class XLSXDocument {
 
     }
 
-//    public func addSheet(named name: String) -> Worksheet {
-//        let sheet = sheets.newSheet(named: name, sharedStrings: sharedStrings)
-//        contentTypes.add(document: sheet)
-//        return sheet
-//    }
+    public func addSheet(named name: String) -> Sheet {
+        return workbook.createSheet(named: name)
+    }
+
+    public var sheets: [Sheet] {
+        return workbook.sheets
+    }
 
     public func save(to path: URL) throws {
-//
-//        let subCacheDirectory = "tmpDoc"
-//        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("saveDir")
-//
-//        defer {
-//            do {
-//                try FileManager.default.removeItem(at: tempDirURL)
-//            } catch {
-//                print("Failed to clean up \(error)")
-//            }
-//        }
-//
-//        let fileManager = FileManager.default
-//        try fileManager.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
-//
-//        let tmpPath = tempDirURL.appendingPathComponent(subCacheDirectory)
-//        try fileManager.createDirectory(at: tmpPath, withIntermediateDirectories: true, attributes: nil)
-//        try contentTypes.write(under: tmpPath)
-//        try relationShips.write(under: tmpPath, fileName: "_rels/.rels")
-//
-//        let xlPath = tmpPath.appendingPathComponent("xl")
-//        try fileManager.createDirectory(at: xlPath, withIntermediateDirectories: true, attributes: nil)
-//
-//        //workbook file
-////        let workbookData = xmlData
-////        try workbookData.write(to: xlPath.appendingPathComponent("workbook.xml"))
-//
-//        sharedStrings.id = "rId\(sheets.sheets.count + 1)"
-//        sheets.relationships.add(file: sharedStrings)
-//
-//        try sheets.saveRelations(under: xlPath)
-//        try sheets.saveSheets(under: xlPath)
-//        // write at end
-//        try sharedStrings.write(under: xlPath)
-//
-//        try fileManager.zipItem(at: xlPath, to: path)
+
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(NSUUID().uuidString)
+
+        defer {
+            do {
+                try FileManager.default.removeItem(at: tempDirURL)
+            } catch {
+                print("Failed to clean up \(error)")
+            }
+        }
+        let fileManager = FileManager.default
+        try fileManager.createDirectory(at: tempDirURL, withIntermediateDirectories: true, attributes: nil)
+
+        try workbook.write(under: tempDirURL, contents: contentTypes)
+
+        try contentTypes.write(under: tempDirURL)
+        try relationships.write(under: tempDirURL, fileName: ".rels")
+
+        try fileManager.zipItem(at: tempDirURL, to: path, shouldKeepParent: false)
 
     }
 

@@ -13,13 +13,13 @@ internal enum XLSValue {
     case text(String)
     case double(Double)
     case float(Float)
+
 }
+
 
 internal class Cell {
 
     private static let validColumnLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-
-    private static let columnChars: [Character] = Cell.validColumnLetters.map({ $0.first! })
 
     static func colToString(_ column: Int) -> String {
 
@@ -35,12 +35,14 @@ internal class Cell {
     }
 
     static func identifierToCol(_ ident: String) -> Int {
-        let nums = ident.uppercased().flatMap({ columnChars.index(of: $0 )})
 
         var sum = 0
-        for val in nums {
+        for char in ident.utf8 {
+            if char > 90 || char < 65 {
+                return sum
+            }
             sum *= 26
-            sum += (val + 1)
+            sum += (Int(char) - 64)
         }
 
         return sum
@@ -50,8 +52,6 @@ internal class Cell {
     let row: Int
 
     let column: Int
-
-    var sharedStringIndex: Int?
 
     var value: XLSValue
 
@@ -64,27 +64,23 @@ internal class Cell {
     init(row: Int, element: XMLElement, strings: SharedStrings) throws {
         self.row = row
 
-        guard let identifier = element.attribute(forName: "r")?.stringValue, let cellValue = element.children?.first else {
+        guard let identifier = element.attribute(forName: "r")?.stringValue, let cellValue = element.children?.first?.stringValue else {
             throw SwiftXLSX.missingContent("Missing column identifier OR child")
         }
 
         column = Cell.identifierToCol(identifier)
 
-        guard let stringVal = cellValue.stringValue else {
-            throw SwiftXLSX.missingContent("Missing cell content!")
-        }
-
         if let type = element.attribute(forName: "t")?.stringValue, type == "s" {
-            guard let index = Int(stringVal), let text = strings.string(at: index) else {
+            guard let index = Int(cellValue), let text = strings.string(at: index) else {
                 throw SwiftXLSX.missingContent("Missing Index")
             }
             value = .text(text)
-        } else if let doubVal = Double(stringVal) {
-            value = .double(doubVal)
-        } else if let floatVal = Float(stringVal) {
-            value = .float(floatVal)
-        } else if let intVal = Int(stringVal) {
+        } else if let intVal = Int(cellValue) {
             value = .integer(intVal)
+        } else if let doubVal = Double(cellValue) {
+            value = .double(doubVal)
+        } else if let floatVal = Float(cellValue) {
+            value = .float(floatVal)
         } else {
             throw SwiftXLSX.missingContent("Invalid content type!")
         }
@@ -95,4 +91,20 @@ internal class Cell {
         return "\(Cell.colToString(self.column + 1))\(self.row + 1)"
     }()
 
+    func write(to handle: FileHandle, with strings: SharedStrings) throws {
+        var xml = "<c r=\"\(identifier)\""
+
+        switch value {
+        case .text(let strVal):
+            let index = strings.add(strVal)
+            xml += " t=\"s\"><v>\(index)</v></c>"
+        case .double(let x):
+            xml += "><v>\(x)</v></c>"
+        case .integer(let x):
+            xml += "><v>\(x)</v></c>"
+        case .float(let x):
+            xml += "><v>\(x)</v></c>"
+        }
+        try handle.write(string: xml)
+    }
 }

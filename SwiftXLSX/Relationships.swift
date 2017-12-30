@@ -8,14 +8,9 @@
 
 import Foundation
 class Relationship {
-    let name = "Relationship"
     let id: String
     let type: String
     let target: String
-
-    var attributes: [String: String] {
-        return ["Id": id, "Type": type, "Target": target]
-    }
 
     init(id: String, type: String, target: String) {
         self.id = id
@@ -29,6 +24,15 @@ class Relationship {
         }
         self.init(id: id, type: type, target: target)
 
+    }
+
+    func write(to handle: FileHandle) throws {
+        try handle.write(string: "<Relationship Id=\"\(id)\" Type=\"\(type)\" Target=\"\(target)\"></Relationship>")
+    }
+
+    var xmlElement: XMLElement {
+        let element = XMLElement(name: "Relationship")
+        return element
     }
 }
 
@@ -64,16 +68,27 @@ class Relationships {
     }
 
     func write(under parentDir: URL, fileName: String) throws {
-//
-//        let subDir = parentDir.appendingPathComponent("_rels")
-//        try FileManager.default.createDirectory(at: subDir, withIntermediateDirectories: true, attributes: nil)
-//        let filePath = subDir.appendingPathComponent(fileName)
-//
-////        try xmlData.write(to: filePath)
+
+        let subDir = parentDir.appendingPathComponent("_rels")
+        try FileManager.default.createDirectory(at: subDir, withIntermediateDirectories: true, attributes: nil)
+
+        let filePath = subDir.appendingPathComponent(fileName)
+
+        FileManager.default.createFile(atPath: filePath.path, contents: nil, attributes: nil)
+        let writeStream = try FileHandle(forWritingTo: filePath)
+        try writeStream.write(string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">")
+
+        for relationship in relationships {
+            try relationship.write(to: writeStream)
+        }
+
+        try writeStream.write(string: "</Relationships>")
+        writeStream.closeFile()
+
     }
 
     func add(file: RelationshipItem) {
-//        rootElement()?.addChild(Relationship(id: file.id, type: file.type, target: file.target))
+        relationships.append(Relationship(id: file.id, type: file.type, target: file.target))
     }
 
     func add(type: String, target: String) -> Relationship {
@@ -82,32 +97,4 @@ class Relationships {
         return created
     }
 }
-
-//
-//extension Relationships: XMLParserDelegate {
-//
-//    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-//        if elementName == "Relationships" {
-//            for (key,value) in attributeDict {
-//                root.addAttribute(name: key, value: value)
-//            }
-//        } else if elementName == "Relationship" {
-//            root.addChild(Relationship(attributes: attributeDict))
-//        } else {
-//            print("Unknown element: \(elementName)!")
-//        }
-//    }
-//
-//    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-//
-//    }
-//
-//    func parser(_ parser: XMLParser, foundCharacters string: String) {
-//
-//    }
-//
-//    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-//
-//    }
-//}
 

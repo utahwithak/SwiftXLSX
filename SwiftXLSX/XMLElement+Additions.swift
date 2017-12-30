@@ -6,7 +6,8 @@
 //  Copyright © 2017 Datum. All rights reserved.
 //
 
-import Cocoa
+import Foundation
+
 
 extension XMLElement {
     func addAttribute(name: String, value: String) {
