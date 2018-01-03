@@ -55,8 +55,8 @@ class SharedStrings {
             cleaned = value
         }
 
-        if let writeStream = writeStream, let data = "<si><t>\(cleaned)</t></si>".data(using: .utf8) {
-            writeStream.write(data)
+        if let writeStream = writeStream {
+            try! writeStream.write(string: "<si><t>\(cleaned)</t></si>")
         } else {
             print("FAILED TO WRITE OUT SHARED STRING!")
         }
@@ -73,7 +73,6 @@ class SharedStrings {
         return sharedStrings[index]
     }
 
-
     func prepareForWriting(under parentDir: URL) throws {
         let path = parentDir.appendingPathComponent("sharedStrings.xml")
         FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
@@ -86,7 +85,6 @@ class SharedStrings {
         writeStream?.closeFile()
         writeStream = nil
     }
-
 }
 
 extension SharedStrings: DocumentContentItem {

@@ -82,7 +82,7 @@ public class XLSXDocument {
         try contentTypes.write(under: tempDirURL)
         try relationships.write(under: tempDirURL, fileName: ".rels")
 
-        try fileManager.zipItem(at: tempDirURL, to: path, shouldKeepParent: false)
+        try fileManager.zipItem(at: tempDirURL, to: path, shouldKeepParent: false, compressionMethod: .deflate)
 
     }
 
