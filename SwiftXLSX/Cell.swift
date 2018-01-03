@@ -10,29 +10,16 @@ import Foundation
 
 internal enum XLSValue {
     case integer(Int)
-    case text(string: SharedStrings, index: Int)
+    case text(String)
     case double(Double)
     case float(Float)
 
-    var xmlValue: String {
-        switch self {
-        case .integer(let x):
-            return "\(x)"
-        case .double(let x):
-            return "\(x)"
-        case .float(let x):
-            return "\(x)"
-        case .text(_ , let index):
-            return "\(index)"
-        }
-    }
 }
 
-internal class Cell: XMLElement {
+
+internal class Cell {
 
     private static let validColumnLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-
-    private static let columnChars: [Character] = Cell.validColumnLetters.map({ $0.first! })
 
     static func colToString(_ column: Int) -> String {
 
@@ -48,13 +35,14 @@ internal class Cell: XMLElement {
     }
 
     static func identifierToCol(_ ident: String) -> Int {
-        let nums = ident.uppercased().flatMap({ columnChars.index(of: $0 )})
-
 
         var sum = 0
-        for val in nums {
+        for char in ident.utf8 {
+            if char > 90 || char < 65 {
+                return sum
+            }
             sum *= 26
-            sum += (val + 1)
+            sum += (Int(char) - 64)
         }
 
         return sum
@@ -65,62 +53,58 @@ internal class Cell: XMLElement {
 
     let column: Int
 
-    var sharedStringIndex: Int?
-
-    var value: XLSValue {
-        didSet {
-            if case let .text(sharedStr, index) = oldValue {
-                sharedStr.removeShared(at: index)
-            }
-            updateChildren()
-        }
-    }
+    var value: XLSValue
 
     init(row: Int, column: Int, value: XLSValue) {
         self.row = row
         self.column = column
         self.value = value
-        super.init(name: "c", uri: nil)
-
-        addAttribute(name: "r", value: identifier)
-
-        updateChildren()
     }
 
-    init(row: Int, attributes: [String: String]) {
+    init(row: Int, element: XMLElement, strings: SharedStrings) throws {
         self.row = row
-        self.value = .integer(0)
 
-        guard let identifier = attributes["r"] else {
-            fatalError("no identifier!")
+        guard let identifier = element.attribute(forName: "r")?.stringValue, let cellValue = element.children?.first?.stringValue else {
+            throw SwiftXLSX.missingContent("Missing column identifier OR child")
         }
+
         column = Cell.identifierToCol(identifier)
-        super.init(name: "c", uri: nil)
 
-        for attr in attributes {
-            addAttribute(name: attr.key, value: attr.value)
-        }
-    }
-
-    func updateChildren() {
-        let newElement = XMLElement(name:"v", stringValue: value.xmlValue)
-
-        if childCount > 0 {
-            replaceChild(at: 0, with: newElement)
+        if let type = element.attribute(forName: "t")?.stringValue, type == "s" {
+            guard let index = Int(cellValue), let text = strings.string(at: index) else {
+                throw SwiftXLSX.missingContent("Missing Index")
+            }
+            value = .text(text)
+        } else if let intVal = Int(cellValue) {
+            value = .integer(intVal)
+        } else if let doubVal = Double(cellValue) {
+            value = .double(doubVal)
+        } else if let floatVal = Float(cellValue) {
+            value = .float(floatVal)
         } else {
-            addChild(newElement)
+            throw SwiftXLSX.missingContent("Invalid content type!")
         }
 
-        if case .text(_, _) = value {
-            addAttribute(name: "t", value: "s")
-        } else {
-            removeAttribute(forName: "t")
-        }
-    
     }
 
     lazy var identifier: String = {
         return "\(Cell.colToString(self.column + 1))\(self.row + 1)"
     }()
 
+    func write(to handle: FileHandle, with strings: SharedStrings) throws {
+        var xml = "<c r=\"\(identifier)\""
+
+        switch value {
+        case .text(let strVal):
+            let index = strings.add(strVal)
+            xml += " t=\"s\"><v>\(index)</v></c>"
+        case .double(let x):
+            xml += "><v>\(x)</v></c>"
+        case .integer(let x):
+            xml += "><v>\(x)</v></c>"
+        case .float(let x):
+            xml += "><v>\(x)</v></c>"
+        }
+        try handle.write(string: xml)
+    }
 }

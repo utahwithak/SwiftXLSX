@@ -8,114 +8,126 @@
 
 import Foundation
 
-fileprivate protocol ContentType {
-
+fileprivate protocol ContentType: class {
+    func writeTo(handle stream: FileHandle) throws
 }
 
-fileprivate class OverrideType: XMLElement, ContentType {
+protocol DocumentContentItem {
+    var contentType: String { get }
+    var partName: String { get }
+}
+
+fileprivate class OverrideType: ContentType {
+    let contentType: String
+    let partName: String
+
+    var attributes: [String : String] {
+        return ["ContentType":contentType, "PartName": partName]
+    }
 
     init(type: String, part: String) {
-        super.init(name: "Override", uri: nil)
-        addAttribute(name: "ContentType", value: type)
-        addAttribute(name: "PartName", value: part)
+        contentType = type
+        partName = part
+
     }
-    init(attributes: [String: String]) {
-        super.init(name: "Override", uri: nil)
-        for (key, value) in attributes {
-            addAttribute(name: key, value: value)
+
+    convenience init?(node: XMLElement) {
+        guard let type = node.attribute(forName: "ContentType")?.stringValue, let part = node.attribute(forName: "PartName")?.stringValue else {
+            return nil
         }
+        self.init(type: type, part: part)
     }
+
+    func writeTo(handle stream: FileHandle) throws {
+        try stream.write(string: "<Override ContentType=\"\(contentType)\" PartName=\"\(partName)\"></Override>")
+    }
+
 }
 
-fileprivate class DefaultType: XMLElement, ContentType {
+fileprivate class DefaultType: ContentType {
+    let contentType: String
+    let ext: String
+
+    var attributes: [String : String] {
+        return ["ContentType": contentType, "Extension": ext]
+    }
 
     init(type: String, fileExtension: String) {
-        super.init(name: "Default", uri: nil)
-        addAttribute(name:"ContentType", value: type)
-        addAttribute(name:"Extension", value: fileExtension)
+        contentType = type
+        ext = fileExtension
     }
 
-    init(attributes: [String: String]) {
-        super.init(name: "Default", uri: nil)
-        for (key, value) in attributes {
-            addAttribute(name: key, value: value)
+    convenience init?(node: XMLElement) {
+
+        guard let type = node.attribute(forName: "ContentType")?.stringValue, let part = node.attribute(forName: "Extension")?.stringValue else {
+            return nil
         }
+
+        self.init(type: type, fileExtension: part)
+    }
+
+    func writeTo(handle stream: FileHandle) throws {
+        try stream.write(string: "<Default ContentType=\"\(contentType)\" Extension=\"\(ext)\"></Default>")
     }
 
 }
 
 
-class ContentTypes: XMLDocument {
+class ContentTypes {
 
+    private var types: [ContentType]
 
-    let root = XMLElement(name: "Types")
-    override func rootElement() -> XMLElement? {
-        return root
-    }
-    override init() {
-        root.addAttribute(name: "xmlns", value: "http://schemas.openxmlformats.org/package/2006/content-types")
-        root.addChild(DefaultType(type: "application/xml", fileExtension: "xml"))
-        root.addChild(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
-        root.addChild(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
+    init() {
+        types = [ContentType]()
+        types.append(DefaultType(type: "application/xml", fileExtension: "xml"))
+        types.append(DefaultType(type: "application/vnd.openxmlformats-package.relationships+xml", fileExtension: "rels"))
+        types.append(DefaultType(type: "image/jpeg", fileExtension: "jpeg"))
 
-        super.init()
-
-        addChild(root)
-
-        version = "1.0"
-        characterEncoding = "UTF-8"
-        isStandalone = true
     }
 
-    init?(under path: URL) {
-    
-        guard let parser = XMLParser(contentsOf: path.appendingPathComponent("[Content_Types].xml")) else {
-            return nil
+    init(from document: XMLDocument) throws {
+        guard let typeNode = document.children?.first(where: {$0.name == "Types"}), let rawTypes = typeNode.children, !rawTypes.isEmpty else {
+            throw SwiftXLSX.missingContent("Missing 'Type' child in ContentTypes")
         }
 
-        super.init()
+        types = rawTypes.flatMap {
+            guard let element = $0 as? XMLElement, let name = element.name else {
+                return nil
+            }
 
-        parser.delegate = self
+            switch name {
+            case "Default":
+                return DefaultType(node: element)
+            case "Override":
+                return OverrideType(node: element)
+            default:
+                return nil
+            }
+        }
+        if types.count != rawTypes.count {
+            throw SwiftXLSX.missingContent("Type count doesn't match")
 
-        guard parser.parse() else {
-            return nil
         }
 
-        addChild(root)
-
-        version = "1.0"
-        characterEncoding = "UTF-8"
-        isStandalone = true
     }
 
     func add(document: DocumentContentItem) {
-        root.addChild(OverrideType(type: document.contentType, part: document.partName))
+        types.append(OverrideType(type: document.contentType, part: document.partName))
     }
 
     func write(under parentDir: URL) throws {
 
         let path = parentDir.appendingPathComponent("[Content_Types].xml")
 
-        if FileManager.default.fileExists(atPath: path.path) {
-            try FileManager.default.removeItem(at: path)
+        FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
+        let writeStream = try FileHandle(forUpdating: path)
+        try writeStream.write(string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">")
+        for type in types {
+            try type.writeTo(handle: writeStream)
         }
-
-        try xmlData.write(to: path)
+        
+        try writeStream.write(string: "</Types>")
+        writeStream.closeFile()
 
     }
-}
-
-extension ContentTypes: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        if elementName == "Types" {
-            for (key,value) in attributeDict {
-                root.addAttribute(name: key, value: value)
-            }
-        } else if elementName == "Default" {
-            root.addChild(DefaultType(attributes: attributeDict))
-        } else if elementName == "Override" {
-            root.addChild(OverrideType(attributes: attributeDict))
-        }
-    }
-
 }

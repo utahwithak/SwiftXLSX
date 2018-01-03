@@ -29,18 +29,33 @@ class SwiftXLSXTests: XCTestCase {
             return
         }
 
-        guard Workbook(path: url) != nil else {
+        do{
+            let wb = try XLSXDocument(path: url)
+            print("wb: \(wb)")
+        }  catch  {
+            print("Failed to create workbook:\(error)")
             XCTFail()
-            return
         }
 
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testMainXLSXPerformance() {
+        let bundle = Bundle(for: type(of:self))
+        guard let url = bundle.url(forResource: "mainXLSX", withExtension: "xlsx") else {
+            XCTFail()
+            return
         }
+
+//
+//        self.measure {
+//            do{
+//                let wb = try Workbook(path: url)
+//                print("wb: \(wb)")
+//            }  catch  {
+//                XCTFail()
+//            }
+//
+//        }
     }
     
 }

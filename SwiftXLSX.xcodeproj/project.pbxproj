@@ -9,22 +9,28 @@
 /* Begin PBXBuildFile section */
 		8F49B4A91EB7FE38001B328C /* XMLElement+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49B4A81EB7FE38001B328C /* XMLElement+Additions.swift */; };
 		8F74FA481FC3567D008D8B4A /* Book1.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 8F74FA431FC3567D008D8B4A /* Book1.xlsx */; };
+		8F9114911FF5C2FE000B6D6A /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148A1FF5C2FE000B6D6A /* Archive.swift */; };
+		8F9114921FF5C2FE000B6D6A /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148B1FF5C2FE000B6D6A /* Archive+Reading.swift */; };
+		8F9114931FF5C2FE000B6D6A /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148C1FF5C2FE000B6D6A /* FileManager+ZIP.swift */; };
+		8F9114941FF5C2FE000B6D6A /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148D1FF5C2FE000B6D6A /* Data+Compression.swift */; };
+		8F9114951FF5C2FE000B6D6A /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148E1FF5C2FE000B6D6A /* Archive+Writing.swift */; };
+		8F9114961FF5C2FE000B6D6A /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F91148F1FF5C2FE000B6D6A /* Data+Serialization.swift */; };
+		8F9114971FF5C2FE000B6D6A /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9114901FF5C2FE000B6D6A /* Entry.swift */; };
+		8FB62BD51FF5409B006188D2 /* mainXLSX.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 8FB62BD01FF54097006188D2 /* mainXLSX.xlsx */; };
+		8FB62BD81FF54377006188D2 /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB62BD71FF54377006188D2 /* libcompression.tbd */; };
+		8FB62C221FF56221006188D2 /* Archive+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB62C211FF56221006188D2 /* Archive+Additions.swift */; };
+		8FB62C241FF5663A006188D2 /* Workbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB62C231FF5663A006188D2 /* Workbook.swift */; };
 		8FF9E8491EB3A5B3003B2DB0 /* SwiftXLSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */; };
 		8FF9E84E1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */; };
 		8FF9E8501EB3A5B3003B2DB0 /* SwiftXLSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FF9E8701EB3A62D003B2DB0 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */; };
 		8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */; };
-		8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */; };
 		8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */; };
 		8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */; };
 		8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8761EB3A634003B2DB0 /* Relationships.swift */; };
 		8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8771EB3A634003B2DB0 /* Row.swift */; };
-		8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8781EB3A634003B2DB0 /* SheetData.swift */; };
-		8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8791EB3A634003B2DB0 /* Sheets.swift */; };
-		8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */; };
-		8FF9E8891EB3A634003B2DB0 /* Worksheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */; };
-		8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */; };
-		8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FF9E8851EB3A634003B2DB0 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8781EB3A634003B2DB0 /* Sheet.swift */; };
+		8FF9E8881EB3A634003B2DB0 /* XLSXDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E87B1EB3A634003B2DB0 /* XLSXDocument.swift */; };
 		8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,48 +42,6 @@
 			remoteGlobalIDString = 8FF9E83E1EB3A5B3003B2DB0;
 			remoteInfo = SwiftXLSX;
 		};
-		8FF9E89F1EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 347E3A741C1DFFB500A11FD3;
-			remoteInfo = Zip;
-		};
-		8FF9E8A11EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 347E3A7E1C1DFFB500A11FD3;
-			remoteInfo = ZipTests;
-		};
-		8FF9E8A31EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 343F50FF1C8DAEEC0028C434;
-			remoteInfo = "Zip OSX";
-		};
-		8FF9E8A51EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 343F51081C8DAEEC0028C434;
-			remoteInfo = "Zip OSXTests";
-		};
-		8FF9E8A71EB3A78B003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 342545B51CE525B200336074;
-			remoteInfo = "Zip tvOS";
-		};
-		8FF9E8AA1EB3A7A0003B2DB0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 343F50FE1C8DAEEC0028C434;
-			remoteInfo = "Zip OSX";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,7 +51,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8FF9E8A91EB3A79C003B2DB0 /* Zip.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +59,18 @@
 /* Begin PBXFileReference section */
 		8F49B4A81EB7FE38001B328C /* XMLElement+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XMLElement+Additions.swift"; sourceTree = "<group>"; };
 		8F74FA431FC3567D008D8B4A /* Book1.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Book1.xlsx; sourceTree = "<group>"; };
+		8F91148A1FF5C2FE000B6D6A /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		8F91148B1FF5C2FE000B6D6A /* Archive+Reading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Reading.swift"; sourceTree = "<group>"; };
+		8F91148C1FF5C2FE000B6D6A /* FileManager+ZIP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
+		8F91148D1FF5C2FE000B6D6A /* Data+Compression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Compression.swift"; sourceTree = "<group>"; };
+		8F91148E1FF5C2FE000B6D6A /* Archive+Writing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
+		8F91148F1FF5C2FE000B6D6A /* Data+Serialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
+		8F9114901FF5C2FE000B6D6A /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		8F91149A1FF6AA55000B6D6A /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		8FB62BD01FF54097006188D2 /* mainXLSX.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = mainXLSX.xlsx; sourceTree = "<group>"; };
+		8FB62BD71FF54377006188D2 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
+		8FB62C211FF56221006188D2 /* Archive+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Additions.swift"; sourceTree = "<group>"; };
+		8FB62C231FF5663A006188D2 /* Workbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workbook.swift; sourceTree = "<group>"; };
 		8FF9E83F1EB3A5B3003B2DB0 /* SwiftXLSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftXLSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftXLSX.h; sourceTree = "<group>"; };
 		8FF9E8431EB3A5B3003B2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,17 +79,12 @@
 		8FF9E84F1EB3A5B3003B2DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTypes.swift; sourceTree = "<group>"; };
-		8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentContentItem.swift; sourceTree = "<group>"; };
 		8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileHandle+Additions.swift"; sourceTree = "<group>"; };
 		8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationshipItem.swift; sourceTree = "<group>"; };
 		8FF9E8761EB3A634003B2DB0 /* Relationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationships.swift; sourceTree = "<group>"; };
 		8FF9E8771EB3A634003B2DB0 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
-		8FF9E8781EB3A634003B2DB0 /* SheetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetData.swift; sourceTree = "<group>"; };
-		8FF9E8791EB3A634003B2DB0 /* Sheets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
-		8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workbook.swift; sourceTree = "<group>"; };
-		8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worksheet.swift; sourceTree = "<group>"; };
-		8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Zip+Additions.swift"; sourceTree = "<group>"; };
-		8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zip.xcodeproj; path = ThirdParty/Zip/Zip.xcodeproj; sourceTree = SOURCE_ROOT; };
+		8FF9E8781EB3A634003B2DB0 /* Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		8FF9E87B1EB3A634003B2DB0 /* XLSXDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLSXDocument.swift; sourceTree = "<group>"; };
 		8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedStrings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB62BD81FF54377006188D2 /* libcompression.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,12 +108,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8FB62BD61FF54377006188D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F91149A1FF6AA55000B6D6A /* libxml2.tbd */,
+				8FB62BD71FF54377006188D2 /* libcompression.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8FB62C031FF54BD7006188D2 /* Zip Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				8F91148A1FF5C2FE000B6D6A /* Archive.swift */,
+				8F91148B1FF5C2FE000B6D6A /* Archive+Reading.swift */,
+				8F91148E1FF5C2FE000B6D6A /* Archive+Writing.swift */,
+				8F91148D1FF5C2FE000B6D6A /* Data+Compression.swift */,
+				8F91148F1FF5C2FE000B6D6A /* Data+Serialization.swift */,
+				8F9114901FF5C2FE000B6D6A /* Entry.swift */,
+				8F91148C1FF5C2FE000B6D6A /* FileManager+ZIP.swift */,
+			);
+			path = "Zip Foundation";
+			sourceTree = "<group>";
+		};
 		8FF9E8351EB3A5B3003B2DB0 = {
 			isa = PBXGroup;
 			children = (
 				8FF9E8411EB3A5B3003B2DB0 /* SwiftXLSX */,
 				8FF9E84C1EB3A5B3003B2DB0 /* SwiftXLSXTests */,
 				8FF9E8401EB3A5B3003B2DB0 /* Products */,
+				8FB62BD61FF54377006188D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,18 +154,17 @@
 			isa = PBXGroup;
 			children = (
 				8FF9E8421EB3A5B3003B2DB0 /* SwiftXLSX.h */,
-				8FF9E87B1EB3A634003B2DB0 /* Workbook.swift */,
-				8FF9E8791EB3A634003B2DB0 /* Sheets.swift */,
-				8FF9E87C1EB3A634003B2DB0 /* Worksheet.swift */,
+				8FF9E87B1EB3A634003B2DB0 /* XLSXDocument.swift */,
+				8FB62C231FF5663A006188D2 /* Workbook.swift */,
+				8FF9E8781EB3A634003B2DB0 /* Sheet.swift */,
 				8FF9E86C1EB3A62D003B2DB0 /* Cell.swift */,
 				8FF9E8771EB3A634003B2DB0 /* Row.swift */,
 				8FF9E8BF1EB3BB31003B2DB0 /* SharedStrings.swift */,
-				8FF9E8781EB3A634003B2DB0 /* SheetData.swift */,
 				8FF9E8901EB3A65B003B2DB0 /* ContentTypes */,
 				8FF9E8911EB3A662003B2DB0 /* Relationships */,
 				8FF9E88F1EB3A644003B2DB0 /* Additions */,
-				8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */,
 				8FF9E8431EB3A5B3003B2DB0 /* Info.plist */,
+				8FB62C031FF54BD7006188D2 /* Zip Foundation */,
 			);
 			path = SwiftXLSX;
 			sourceTree = "<group>";
@@ -178,6 +172,7 @@
 		8FF9E84C1EB3A5B3003B2DB0 /* SwiftXLSXTests */ = {
 			isa = PBXGroup;
 			children = (
+				8FB62BD01FF54097006188D2 /* mainXLSX.xlsx */,
 				8F74FA431FC3567D008D8B4A /* Book1.xlsx */,
 				8FF9E84D1EB3A5B3003B2DB0 /* SwiftXLSXTests.swift */,
 				8FF9E84F1EB3A5B3003B2DB0 /* Info.plist */,
@@ -188,9 +183,9 @@
 		8FF9E88F1EB3A644003B2DB0 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				8FF9E8801EB3A634003B2DB0 /* Zip+Additions.swift */,
 				8F49B4A81EB7FE38001B328C /* XMLElement+Additions.swift */,
 				8FF9E86F1EB3A62D003B2DB0 /* FileHandle+Additions.swift */,
+				8FB62C211FF56221006188D2 /* Archive+Additions.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -199,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				8FF9E86D1EB3A62D003B2DB0 /* ContentTypes.swift */,
-				8FF9E86E1EB3A62D003B2DB0 /* DocumentContentItem.swift */,
 			);
 			name = ContentTypes;
 			sourceTree = "<group>";
@@ -211,18 +205,6 @@
 				8FF9E8751EB3A634003B2DB0 /* RelationshipItem.swift */,
 			);
 			name = Relationships;
-			sourceTree = "<group>";
-		};
-		8FF9E8981EB3A78B003B2DB0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8FF9E8A01EB3A78B003B2DB0 /* Zip.framework */,
-				8FF9E8A21EB3A78B003B2DB0 /* ZipTests.xctest */,
-				8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */,
-				8FF9E8A61EB3A78B003B2DB0 /* Zip OSXTests.xctest */,
-				8FF9E8A81EB3A78B003B2DB0 /* Zip.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +234,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				8FF9E8AB1EB3A7A0003B2DB0 /* PBXTargetDependency */,
 			);
 			name = SwiftXLSX;
 			productName = SwiftXLSX;
@@ -311,12 +292,6 @@
 			mainGroup = 8FF9E8351EB3A5B3003B2DB0;
 			productRefGroup = 8FF9E8401EB3A5B3003B2DB0 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8FF9E8981EB3A78B003B2DB0 /* Products */;
-					ProjectRef = 8FF9E8971EB3A78B003B2DB0 /* Zip.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8FF9E83E1EB3A5B3003B2DB0 /* SwiftXLSX */,
@@ -324,44 +299,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8FF9E8A01EB3A78B003B2DB0 /* Zip.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Zip.framework;
-			remoteRef = 8FF9E89F1EB3A78B003B2DB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8FF9E8A21EB3A78B003B2DB0 /* ZipTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ZipTests.xctest;
-			remoteRef = 8FF9E8A11EB3A78B003B2DB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8FF9E8A41EB3A78B003B2DB0 /* Zip.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Zip.framework;
-			remoteRef = 8FF9E8A31EB3A78B003B2DB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8FF9E8A61EB3A78B003B2DB0 /* Zip OSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Zip OSXTests.xctest";
-			remoteRef = 8FF9E8A51EB3A78B003B2DB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8FF9E8A81EB3A78B003B2DB0 /* Zip.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Zip.framework;
-			remoteRef = 8FF9E8A71EB3A78B003B2DB0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8FF9E83D1EB3A5B3003B2DB0 /* Resources */ = {
@@ -375,6 +312,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB62BD51FF5409B006188D2 /* mainXLSX.xlsx in Resources */,
 				8F74FA481FC3567D008D8B4A /* Book1.xlsx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,20 +324,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FB62C241FF5663A006188D2 /* Workbook.swift in Sources */,
 				8FF9E8C01EB3BB31003B2DB0 /* SharedStrings.swift in Sources */,
-				8FF9E8721EB3A62D003B2DB0 /* DocumentContentItem.swift in Sources */,
-				8FF9E8851EB3A634003B2DB0 /* SheetData.swift in Sources */,
+				8FF9E8851EB3A634003B2DB0 /* Sheet.swift in Sources */,
+				8F9114971FF5C2FE000B6D6A /* Entry.swift in Sources */,
 				8FF9E8821EB3A634003B2DB0 /* RelationshipItem.swift in Sources */,
+				8F9114961FF5C2FE000B6D6A /* Data+Serialization.swift in Sources */,
 				8FF9E8701EB3A62D003B2DB0 /* Cell.swift in Sources */,
 				8FF9E8841EB3A634003B2DB0 /* Row.swift in Sources */,
-				8FF9E8891EB3A634003B2DB0 /* Worksheet.swift in Sources */,
-				8FF9E8881EB3A634003B2DB0 /* Workbook.swift in Sources */,
-				8FF9E88D1EB3A634003B2DB0 /* Zip+Additions.swift in Sources */,
+				8FF9E8881EB3A634003B2DB0 /* XLSXDocument.swift in Sources */,
+				8F9114931FF5C2FE000B6D6A /* FileManager+ZIP.swift in Sources */,
+				8F9114941FF5C2FE000B6D6A /* Data+Compression.swift in Sources */,
 				8FF9E8711EB3A62D003B2DB0 /* ContentTypes.swift in Sources */,
 				8F49B4A91EB7FE38001B328C /* XMLElement+Additions.swift in Sources */,
+				8FB62C221FF56221006188D2 /* Archive+Additions.swift in Sources */,
 				8FF9E8731EB3A62D003B2DB0 /* FileHandle+Additions.swift in Sources */,
+				8F9114951FF5C2FE000B6D6A /* Archive+Writing.swift in Sources */,
+				8F9114911FF5C2FE000B6D6A /* Archive.swift in Sources */,
 				8FF9E8831EB3A634003B2DB0 /* Relationships.swift in Sources */,
-				8FF9E8861EB3A634003B2DB0 /* Sheets.swift in Sources */,
+				8F9114921FF5C2FE000B6D6A /* Archive+Reading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,11 +361,6 @@
 			isa = PBXTargetDependency;
 			target = 8FF9E83E1EB3A5B3003B2DB0 /* SwiftXLSX */;
 			targetProxy = 8FF9E84A1EB3A5B3003B2DB0 /* PBXContainerItemProxy */;
-		};
-		8FF9E8AB1EB3A7A0003B2DB0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Zip OSX";
-			targetProxy = 8FF9E8AA1EB3A7A0003B2DB0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
