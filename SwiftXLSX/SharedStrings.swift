@@ -7,7 +7,16 @@
 //
 
 import Foundation
-
+extension String {
+    var xmlSafeString: String {
+        var temp = replacingOccurrences(of: "&", with:"&amp;")
+        temp = temp.replacingOccurrences(of: "\"", with: "&quot;")
+        temp = temp.replacingOccurrences(of: "'", with: "&#39;")
+        temp = temp.replacingOccurrences(of: ">", with: "&gt;")
+        temp = temp.replacingOccurrences(of: "<", with: "&lt;")
+        return temp
+    }
+}
 class SharedStrings {
     private static let controlChars = CharacterSet.controlCharacters
 
@@ -31,11 +40,11 @@ class SharedStrings {
             sharedStrings.reserveCapacity( count)
         }
 
-        guard let strings = sst.children?.flatMap({ ($0 as? XMLElement)?.children?.first }) as? [XMLElement] else {
+        guard let strings = sst.children?.compactMap({ ($0 as? XMLElement)?.children?.first }) as? [XMLElement] else {
             return
         }
         
-        sharedStrings = strings.flatMap( { $0.stringValue })
+        sharedStrings = strings.compactMap( { $0.stringValue })
         guard strings.count == sharedStrings.count else {
             throw SwiftXLSX.missingContent("Shared strings missing!")
         }
@@ -56,7 +65,7 @@ class SharedStrings {
         }
 
         if let writeStream = writeStream {
-            try! writeStream.write(string: "<si><t>\(cleaned)</t></si>")
+            try! writeStream.write(string: "<si><t>\(cleaned.xmlSafeString)</t></si>")
         } else {
             print("FAILED TO WRITE OUT SHARED STRING!")
         }

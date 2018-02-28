@@ -50,7 +50,7 @@ class Relationships {
             throw SwiftXLSX.missingContent("Relationships")
         }
         
-        relationships = rawRels.flatMap { Relationship(from: $0) }
+        relationships = rawRels.compactMap { Relationship(from: $0) }
 
         guard relationships.count == rawRels.count else {
             throw SwiftXLSX.missingContent("Relationship count doesn't match")

@@ -90,7 +90,7 @@ class ContentTypes {
             throw SwiftXLSX.missingContent("Missing 'Type' child in ContentTypes")
         }
 
-        types = rawTypes.flatMap {
+        types = rawTypes.compactMap {
             guard let element = $0 as? XMLElement, let name = element.name else {
                 return nil
             }

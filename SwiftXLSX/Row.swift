@@ -23,10 +23,7 @@ public class Row {
 
     internal init(id: Int) {
         self.id = id
-//
-//        super.init(name: "row", uri: nil)
-//
-//        addAttribute(name: "r", value: "\(id + 1)")
+
     }
     internal init(from element: XMLElement, strings: SharedStrings) throws {
         guard let idStr = element.attribute(forName: "r")?.stringValue, let id = Int(idStr) else {
@@ -35,7 +32,7 @@ public class Row {
 
         self.id = id
 
-        cells = try element.children?.flatMap {
+        cells = try element.children?.compactMap {
             if let element = $0 as? XMLElement {
                 return try Cell(row: id, element: element, strings: strings)
             }
@@ -97,10 +94,12 @@ public class Row {
     /// Will set column data from 0..<data.count to be the value in the array
     ///
     /// - Parameter data: values for columns 0..<data.count
-    public func setColumnData(_ data: [XLSXExpressible]) {
+    public func setColumnData(_ data: [XLSXExpressible?]) {
         cells.removeAll(keepingCapacity: true)
-        for (column, value) in data.enumerated() {
-
+        for (column, val) in data.enumerated() {
+            guard let value = val else {
+                continue
+            }
             let xlsxValue: XLSValue
             switch value {
             case let x as Int:
