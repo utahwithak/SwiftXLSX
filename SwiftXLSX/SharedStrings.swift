@@ -9,7 +9,7 @@
 import Foundation
 extension String {
     var xmlSafeString: String {
-        var temp = replacingOccurrences(of: "&", with:"&amp;")
+        var temp = replacingOccurrences(of: "&", with: "&amp;")
         temp = temp.replacingOccurrences(of: "\"", with: "&quot;")
         temp = temp.replacingOccurrences(of: "'", with: "&#39;")
         temp = temp.replacingOccurrences(of: ">", with: "&gt;")
@@ -43,8 +43,8 @@ class SharedStrings {
         guard let strings = sst.children?.compactMap({ ($0 as? XMLElement)?.children?.first }) as? [XMLElement] else {
             return
         }
-        
-        sharedStrings = strings.compactMap( { $0.stringValue })
+
+        sharedStrings = strings.compactMap({ $0.stringValue })
         guard strings.count == sharedStrings.count else {
             throw SwiftXLSX.missingContent("Shared strings missing!")
         }

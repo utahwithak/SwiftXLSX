@@ -40,7 +40,6 @@ public class Sheet {
             throw SwiftXLSX.missingContent("Sheet data missing")
         }
 
-
         try sheetData.children?.forEach({ element in
             if let rowElement = element as? XMLElement {
                 let newRow = try Row(from: rowElement, strings: strings)
@@ -48,11 +47,10 @@ public class Sheet {
             }
         })
 
-
     }
 
     public func flatData() -> [[XLSXExpressible?]]? {
-    
+
         let maxColCount = rows.reduce(0, {max($0, $1.maxColumnCount)})
 
         return rows.map({ $0.rowData(paddedTo: maxColCount)})
@@ -98,4 +96,3 @@ extension Sheet: RelationshipItem {
         return "worksheets/sheet\(sheetId).xml"
     }
 }
-

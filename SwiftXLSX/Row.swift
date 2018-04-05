@@ -14,7 +14,6 @@ extension Int: XLSXExpressible {}
 extension Double: XLSXExpressible {}
 extension Float: XLSXExpressible {}
 
-
 public class Row {
 
     let id: Int
@@ -40,7 +39,6 @@ public class Row {
             return nil
         } ?? []
 
-        
     }
 
     public var rawData: [XLSXExpressible?] {

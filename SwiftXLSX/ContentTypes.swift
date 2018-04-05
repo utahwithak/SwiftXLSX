@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate protocol ContentType: class {
+private protocol ContentType: class {
     func writeTo(handle stream: FileHandle) throws
 }
 
@@ -17,11 +17,11 @@ protocol DocumentContentItem {
     var partName: String { get }
 }
 
-fileprivate class OverrideType: ContentType {
+private class OverrideType: ContentType {
     let contentType: String
     let partName: String
 
-    var attributes: [String : String] {
+    var attributes: [String: String] {
         return ["ContentType":contentType, "PartName": partName]
     }
 
@@ -44,11 +44,11 @@ fileprivate class OverrideType: ContentType {
 
 }
 
-fileprivate class DefaultType: ContentType {
+private class DefaultType: ContentType {
     let contentType: String
     let ext: String
 
-    var attributes: [String : String] {
+    var attributes: [String: String] {
         return ["ContentType": contentType, "Extension": ext]
     }
 
@@ -71,7 +71,6 @@ fileprivate class DefaultType: ContentType {
     }
 
 }
-
 
 class ContentTypes {
 
@@ -125,7 +124,7 @@ class ContentTypes {
         for type in types {
             try type.writeTo(handle: writeStream)
         }
-        
+
         try writeStream.write(string: "</Types>")
         writeStream.closeFile()
 

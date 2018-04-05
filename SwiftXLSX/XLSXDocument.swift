@@ -33,7 +33,7 @@ public class XLSXDocument {
 
     public init(path: URL) throws {
 
-        guard let archive = Archive(url: path, accessMode: .read) else  {
+        guard let archive = Archive(url: path, accessMode: .read) else {
             throw SwiftXLSX.failedToCreateArchive
         }
 
@@ -87,4 +87,3 @@ public class XLSXDocument {
     }
 
 }
-

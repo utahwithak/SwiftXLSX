@@ -28,14 +28,12 @@ internal class Workbook {
 
         let sharedStrings = try SharedStrings(from: try archive.extractAll(of: "xl/sharedStrings.xml"))
 
-
         let workbookDocument = try archive.extractAll(of: relationship.target)
         guard let workbook = workbookDocument.children?.first(where: { $0.name == "workbook"}) as? XMLElement, let sheetArray = workbook.children?.first(where: { $0.name == "sheets"}) else {
             throw SwiftXLSX.missingContent("Missign sheets data")
         }
 
-
-        try sheetArray.children?.forEach{
+        try sheetArray.children?.forEach {
             guard let sheet = $0 as? XMLElement,
                 let name = sheet.attribute(forName: "name")?.stringValue,
                 let rId = sheet.attribute(forName: "r:id")?.stringValue,
@@ -84,9 +82,8 @@ internal class Workbook {
         }
         sharedStrings.finishWriting()
 
-        _ = relationships.add(type:"http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings", target: "sharedStrings.xml")
+        _ = relationships.add(type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings", target: "sharedStrings.xml")
         try relationships.write(under: xlPath, fileName: "workbook.xml.rels")
-
 
         let path =  xlPath.appendingPathComponent("workbook.xml")
 
@@ -98,7 +95,6 @@ internal class Workbook {
         for sheet in sheets {
             try writeStream.write(string: "<sheet name=\"\(sheet.name)\" r:id=\"\(sheet.id)\" sheetId=\"\(sheet.sheetId)\"></sheet>")
         }
-
 
         try writeStream.write(string: "</sheets></workbook>")
         writeStream.closeFile()

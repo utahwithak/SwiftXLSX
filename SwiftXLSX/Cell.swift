@@ -16,22 +16,21 @@ internal enum XLSValue {
 
 }
 
-
 internal class Cell {
 
-    private static let validColumnLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    private static let validColumnLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
     static func colToString(_ column: Int) -> String {
 
         var id = ""
         var index = column
         while index > 0 {
-            let modulo = (index - 1) % 26;
+            let modulo = (index - 1) % 26
             id = "\(validColumnLetters[modulo])\(id)"
             index = (index - modulo) / 26
         }
-        
-        return id;
+
+        return id
     }
 
     static func identifierToCol(_ ident: String) -> Int {

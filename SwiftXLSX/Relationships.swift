@@ -49,7 +49,7 @@ class Relationships {
         guard let root = document.children?.first( where: {$0.name == "Relationships" }), let rawRels = root.children as? [XMLElement], !rawRels.isEmpty else {
             throw SwiftXLSX.missingContent("Relationships")
         }
-        
+
         relationships = rawRels.compactMap { Relationship(from: $0) }
 
         guard relationships.count == rawRels.count else {
@@ -57,7 +57,6 @@ class Relationships {
         }
 
     }
-
 
     func relationships(matching type: String) -> [Relationship] {
         return relationships.filter({ $0.type == type})
@@ -97,4 +96,3 @@ class Relationships {
         return created
     }
 }
-

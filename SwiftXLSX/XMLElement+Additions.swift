@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension XMLElement {
     func addAttribute(name: String, value: String) {
         let attribute = XMLElement(kind: .attribute)

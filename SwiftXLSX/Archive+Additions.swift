@@ -14,7 +14,7 @@ extension Archive {
             return try XMLDocument(data: $0)
         }
     }
-    
+
     public func extractAll<T>(of file: String, handler: (Data) throws -> T) throws -> T {
 
         guard let entry = self[file] else {

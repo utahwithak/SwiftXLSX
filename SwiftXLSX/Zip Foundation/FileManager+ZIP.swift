@@ -26,7 +26,7 @@ extension FileManager {
     ///   - shouldKeepParent: Indicates that the directory name of a source item should be used as root element
     ///                       within the archive. Default is `true`.
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
-    public func zipItem(at sourceURL: URL, to destinationURL: URL, shouldKeepParent: Bool = true,compressionMethod: CompressionMethod = .none) throws {
+    public func zipItem(at sourceURL: URL, to destinationURL: URL, shouldKeepParent: Bool = true, compressionMethod: CompressionMethod = .none) throws {
         guard self.fileExists(atPath: sourceURL.path) else {
             throw CocoaError.error(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path], url: nil)
         }
@@ -46,7 +46,7 @@ extension FileManager {
             let directoryPrefix = sourceURL.lastPathComponent
             while let entryPath = dirEnumerator?.nextObject() as? String {
                 let finalEntryPath = shouldKeepParent ? directoryPrefix + "/" + entryPath : entryPath
-                try archive.addEntry(with: finalEntryPath, relativeTo: shouldKeepParent ? sourceURL.deletingLastPathComponent() : sourceURL , compressionMethod: compressionMethod)
+                try archive.addEntry(with: finalEntryPath, relativeTo: shouldKeepParent ? sourceURL.deletingLastPathComponent() : sourceURL, compressionMethod: compressionMethod)
             }
         } else {
             let baseURL = sourceURL.deletingLastPathComponent()
