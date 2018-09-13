@@ -271,7 +271,7 @@
 					8FF9E83E1EB3A5B3003B2DB0 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = QV4QS82KBT;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					8FF9E8471EB3A5B3003B2DB0 = {
@@ -498,8 +498,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -521,8 +520,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.datum.SwiftXLSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
