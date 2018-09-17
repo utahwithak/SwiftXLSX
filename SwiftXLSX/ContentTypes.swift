@@ -22,7 +22,7 @@ private class OverrideType: ContentType {
     let partName: String
 
     var attributes: [String: String] {
-        return ["ContentType":contentType, "PartName": partName]
+        return ["ContentType": contentType, "PartName": partName]
     }
 
     init(type: String, part: String) {
