@@ -184,7 +184,7 @@ public final class Archive: Sequence {
             let offset = Int(centralDirStruct.relativeOffsetOfLocalHeader)
             guard let localFileHeader: LocalFileHeader = Data.readStructure(from: self.archiveFile,
                                                                             at: offset) else { return nil }
-            var dataDescriptor: DataDescriptor? = nil
+            var dataDescriptor: DataDescriptor?
             if centralDirStruct.usesDataDescriptor {
                 let additionalSize = Int(localFileHeader.fileNameLength + localFileHeader.extraFieldLength)
                 let isCompressed = centralDirStruct.compressionMethod != CompressionMethod.none.rawValue
